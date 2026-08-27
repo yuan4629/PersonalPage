@@ -40,17 +40,10 @@ chrome --headless=new --disable-gpu --no-pdf-header-footer \
   --print-to-pdf=cv.pdf file:///ABSOLUTE/PATH/TO/cv.html
 ```
 
-The `@media print` block in `cv.html` controls the PDF layout (A4, 14/15 mm margins,
-currently 2 pages). Keep `cv.md` in sync when the content changes.
+The `@media print` block in `cv.html` controls the PDF layout (A4, 13/15 mm margins,
+currently 3 pages). Keep `cv.md` in sync when the content changes.
 
-## Still open
+---
 
-- **Interactive panel numbers** (64 / 49 / 79 in `index.html`) are illustrative, not measured.
-  The caption says so — swap in the real numbers and delete that line.
-- **ORCID.** There is a different, well-known *Yue Huang* (Notre Dame) publishing on trustworthy
-  LLM evaluation — one character away in the same subfield. An ORCID on the page and the CV is
-  the cheapest disambiguation; the Chinese name in the `<h1>` and the Google Scholar link
-  above the fold already help.
-- **Photo.** Optional; the layout has no slot for one and reads fine without.
-- **Contact.** `cv.md` / `cv.html` / `cv.pdf` publish a personal phone number. Fine if intended,
-  but note that git history keeps it even after a later removal.
+Working notes, open items, and the provenance table for every figure quoted on the site are kept
+in `NOTES.local.md`, which is gitignored and stays off this repo.

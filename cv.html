@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yuan Huang — Curriculum Vitae</title>
-<meta name="description" content="Curriculum vitae of Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Trustworthy evaluation of large multimodal language models and mechanistic interpretability of judge bias.">
+<meta name="description" content="Curriculum vitae of Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Measurement validity in model evaluation, counterfactual auditing of multimodal LLM judges.">
 <link rel="canonical" href="https://yuan4629.github.io/PersonalPage/cv.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +86,7 @@ a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2
   display:grid;
   grid-template-columns:var(--gutter) 1fr;
   gap:0 30px;
-  padding:28px 0;
+  padding:26px 0;
   border-bottom:1px solid var(--rule);
 }
 .sec:last-of-type{border-bottom:0}
@@ -118,6 +118,7 @@ p{margin:0 0 .9em;max-width:38em}
 .entry-m .sep{color:var(--ink-3);margin:0 8px}
 .byline{font-size:.93rem;color:var(--ink-2);margin:0 0 7px;max-width:40em}
 .me{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pine)}
+.lead{font-size:.93rem;color:var(--ink-2);margin:0 0 8px;max-width:40em}
 .chip{
   border:1px solid var(--rule);
   padding:1px 7px;
@@ -139,6 +140,10 @@ ul.bul li::before{
   color:var(--ink-3);
 }
 ul.bul strong{color:var(--ink);font-weight:600}
+
+ol.num{margin:0 0 .9em;padding-left:1.35em}
+ol.num li{font-size:.95rem;color:var(--ink-2);margin:0 0 4px;max-width:39em}
+ol.num strong{color:var(--ink);font-weight:600}
 
 .plain{list-style:none;margin:0;padding:0}
 .plain li{
@@ -185,24 +190,26 @@ footer{
 }
 
 /* ---------- print / PDF ---------- */
-@page{size:A4;margin:14mm 15mm}
+@page{size:A4;margin:13mm 15mm}
 @media print{
-  body{background:#fff;font-size:9.9pt;line-height:1.45}
+  body{background:#fff;font-size:9.5pt;line-height:1.42}
   .wrap{max-width:none;padding:0}
   .topbar,.noprint{display:none !important}
-  .mast{padding:0 0 12px}
-  .name{font-size:19pt}
-  .contact{font-size:8pt;line-height:1.7;margin-top:8px}
-  .sec{padding:12px 0;gap:0 22px;grid-template-columns:96px 1fr}
-  .label{font-size:7.2pt}
-  .entry{margin-bottom:11px;break-inside:avoid}
-  .entry-t{font-size:10.4pt}
-  .entry-m{font-size:7.6pt;margin-bottom:5px}
-  .byline{font-size:9.4pt;margin-bottom:4px}
-  ul.bul li{font-size:9.4pt;margin-bottom:3px}
-  .plain li{font-size:9.4pt;padding:4px 0}
+  .mast{padding:0 0 11px}
+  .name{font-size:18pt}
+  .contact{font-size:7.8pt;line-height:1.65;margin-top:7px}
+  .affil{font-size:9pt;margin-top:7px}
+  .sec{padding:10px 0;gap:0 20px;grid-template-columns:92px 1fr}
+  .label{font-size:7pt}
+  .entry{margin-bottom:10px;break-inside:avoid}
+  .entry-t{font-size:10pt}
+  .entry-m{font-size:7.4pt;margin-bottom:4px}
+  .byline,.lead{font-size:9pt;margin-bottom:4px}
+  ul.bul li,ol.num li{font-size:9pt;margin-bottom:3px}
+  .plain li{font-size:9pt;padding:3.5px 0}
+  p{margin-bottom:.7em}
   a{border-bottom:0}
-  footer{margin-top:16px;padding-top:12px}
+  footer{margin-top:14px;padding-top:10px}
 }
 </style>
 </head>
@@ -225,16 +232,52 @@ footer{
   <p class="affil">Northeastern University, Shenyang, China</p>
 </header>
 
-<!-- ================= RESEARCH INTERESTS ================= -->
+<!-- ================= INTERESTS ================= -->
 <section class="sec">
   <div class="label">Interests</div>
   <div class="body">
     <p>
-      Trustworthy and human-centered evaluation of large (multimodal) language models.
-      Specifically: benchmark design grounded in large-scale real human behavior rather than
-      model self-play; reliability and bias of LLM-as-a-judge;
-      <strong>mechanistic accounts of why a model&rsquo;s judgment fails</strong>;
-      and social and strategic reasoning in LLM agents.
+      Measurement validity in model evaluation — whether the benchmarks and automatic judges used
+      to rank models are measuring what they claim to. Concretely: counterfactual auditing of
+      (multimodal) LLM judges, benchmark design grounded in large-scale real human behavior rather
+      than model self-play, and social and strategic reasoning in LLM agents.
+    </p>
+  </div>
+</section>
+
+<!-- ================= DIRECTION ================= -->
+<section class="sec">
+  <div class="label">Direction</div>
+  <div class="body">
+    <p>
+      One result recurs across my projects: <strong>surface competence &ne; underlying cognitive
+      competence</strong>. In geolocation, a correct answer is not a correct reasoning process; in
+      social deduction, persuasive language is not strategic correctness; in multimodal judging, a
+      verdict that looks right is not one that used the right evidence.
+    </p>
+    <p>
+      The question I want to work on: why can a language model be this fluent and this capable at
+      the surface, yet lack robust reasoning, strategy, and depth — what is missing between
+      generating language and thinking? At three levels:
+    </p>
+    <ol class="num">
+      <li><strong>Measure the gap.</strong> Evaluation grounded in real human behavior and cognitive
+        process, built to separate surface success from the capacity it stands in for.</li>
+      <li><strong>Explain it.</strong> Mechanistic accounts of what inside the model produces the
+        failure.</li>
+      <li><strong>Close it.</strong> Interventions that change the underlying process rather than
+        the benchmark number.</li>
+    </ol>
+    <p>
+      Longer term: what computational process turns language generation into reasoning, conceptual
+      restructuring, and discovery — a science of machine thought, rather than a model that writes
+      more like someone who thinks.
+    </p>
+    <p>
+      <strong>PromptChecker</strong> <em>(early stage)</em> — instructions arrive one at a time and
+      rarely specify the problem on their own; a model that answers immediately is answering a
+      question that was never fully asked. Reconstruct what the user actually needs before
+      responding, and treat &ldquo;not yet enough to act&rdquo; as a first-class output.
     </p>
   </div>
 </section>
@@ -245,9 +288,10 @@ footer{
   <div class="body">
     <div class="entry">
       <p class="entry-t">B.Eng. in Computer Science and Technology — Northeastern University, China</p>
-      <p class="entry-m">2023 – 2027 (expected mid-2027)<span class="sep">·</span>Shenyang, China</p>
+      <p class="entry-m">2023 – 2027 (expected)<span class="sep">·</span>Shenyang, China</p>
       <ul class="bul">
         <li>CGPA <strong>4.05 / 5.00</strong> (90 / 100) · <strong>Rank 5 / 100</strong> in major cohort</li>
+        <li>Research advising: Shiqi Zhao, Brain-Computer Interface and Hardware Acceleration Lab, since 2024</li>
       </ul>
     </div>
   </div>
@@ -263,7 +307,7 @@ footer{
       <p class="entry-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
       <p class="byline">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al.</p>
       <p class="entry-m">
-        <span class="chip hot">EMNLP 2026 Main</span><span class="sep">·</span><a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a><span class="sep">·</span>co-first author
+        <span class="chip hot">EMNLP 2026 Main</span><span class="sep">·</span><span style="white-space:nowrap">co-first author</span><span class="sep">·</span><a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a><span class="sep">·</span><a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a>
       </p>
     </div>
 
@@ -271,15 +315,15 @@ footer{
       <p class="entry-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
       <p class="byline">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
       <p class="entry-m">
-        <span class="chip">Preprint</span><span class="sep">·</span><a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
+        <span class="chip">Preprint</span><span class="sep">·</span><a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a><span class="sep">·</span><a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a><span class="sep">·</span><a href="https://github.com/yuan4629/Geocomp">Code</a>
       </p>
     </div>
 
     <div class="entry">
-      <p class="entry-t">Inside the Unfair Judge: A Mechanistic Interpretability Account of MLLM-as-Judge Bias</p>
+      <p class="entry-t">EditJudgeBias: A Preservation-Gated Counterfactual Audit of MLLM Judges for Instruction-Based Image Editing</p>
       <p class="byline"><span class="me">Yuan Huang</span> — sole first author</p>
       <p class="entry-m">
-        <span class="chip">In preparation</span><span class="sep">·</span>targeting ICLR 2027 (abstract deadline 18 Sep 2026)
+        <span class="chip">In preparation</span><span class="sep">·</span>targeting ICLR 2027
       </p>
     </div>
   </div>
@@ -291,16 +335,42 @@ footer{
   <div class="body">
 
     <div class="entry">
-      <p class="entry-t">Mechanistic Interpretability of MLLM-as-Judge Bias — independent first-author project</p>
-      <p class="entry-m">2026 – present<span class="sep">·</span>Sole first author: conception, experimental design, implementation, analysis, writing</p>
+      <p class="entry-t">EditJudgeBias — counterfactual auditing of multimodal image-editing judges</p>
+      <p class="entry-m">2026 – present<span class="sep">·</span>Sole first author: conception, design, implementation, analysis, writing</p>
+      <p class="lead">
+        Leaderboards for instruction-based image editing increasingly rank models with MLLM judges
+        that are not themselves audited. This project makes &ldquo;how much of the score is edit
+        quality&rdquo; measurable.
+      </p>
       <ul class="bul">
-        <li>Showed that multimodal LLM judges are steered by <strong>non-visual</strong> factors while
-          the image stays <strong>pixel-identical</strong>: attaching a caption line lowers the score;
-          inserting a social cue (&ldquo;most reviewers preferred it&rdquo;) into the prompt raises it.</li>
-        <li>Gave a <strong>mechanistic account of how the bias forms inside the model</strong>, rather
-          than reporting the behavioral effect alone.</li>
-        <li>Evaluated <strong>three widely used debiasing strategies</strong>; <strong>none</strong>
-          restored the correct judgment.</li>
+        <li><strong>Method.</strong> A single invariant runs through the pipeline: admit only
+          perturbations that can be shown not to have changed edit quality. Preservation
+          verification is an <strong>admission gate</strong> every injector and metric must pass —
+          not a post-hoc check — with coverage reported layer by layer, and each cue carries a
+          <strong>zero-dose sham control</strong> establishing a per-judge, per-metric floor so that
+          null results are readable. (Preservation checking itself is not novel; making it a gate,
+          and pairing it with sham floors, is the departure.)</li>
+        <li><strong>Scale.</strong> 13 cue conditions across four injection sites — protocol, pixel,
+          content, prompt — plus a null control; 5 published judges plus an independent replication
+          arm carrying its own BH family; base images from 5 public sources through a text / sha1 /
+          ORB near-duplicate gate into 3 disjoint content pools. <strong>97,973 judgments</strong>,
+          1:1 with raw responses, 0.300% parse failure. 11 cues carry human-annotation legs, three
+          rounds, <strong>&kappa; = 0.8930</strong> (read beside &kappa;<sub>max</sub> = 0.8930).</li>
+        <li><strong>Findings.</strong> Protocol-level reordering alone — nothing else touched —
+          flips decisions at <strong>38.2&times; the judge's self-noise</strong>. Five pixel/content
+          cues depress across 5/5 judges; bandwagon is the only consistent inflator. Most effects
+          are order-preserving depressions. <strong>Rubric scoring buys absolute-score stability but
+          not rank stability.</strong> Of three mitigation layers only the protocol-level one works,
+          and its mechanism is <strong>abstention, not debiasing</strong>; ensemble median is worse
+          than nothing. A 5/5 null on a skin-tone attribute is readable only because same-batch
+          positive controls fired — testing specificity alone would certify a never-alarming judge
+          as best-calibrated (revocation sensitivity 0.032 vs 0.946 on identical data).</li>
+        <li><strong>Verification.</strong> 1,307 unit tests; 109 frozen artifacts each with sha256,
+          producer, and an explicit &ldquo;must not be read as&rdquo; field; a single reconstruction
+          path with byte-level comparison after full rebuild; a self-certifying delivery package
+          (1,289 tests pass in-package, 112 rebuilt analysis tables byte-identical). The audit
+          overturned four of my own conclusions, including a correction of one claim from 13/40
+          significant cells to 2/40 after adding clustering.</li>
       </ul>
     </div>
 
@@ -311,15 +381,15 @@ footer{
         <li>Built a benchmark from <strong>100+ hours</strong> of professionally produced human
           social-deduction gameplay (<strong>32.4M utterance tokens</strong>, 30 roles, 15 rule
           variants, multimodal), using <strong>winning-side MVP strategy trajectories as ground
-          truth</strong> — in contrast to prior LLM self-play data.</li>
+          truth</strong> rather than LLM self-play.</li>
         <li>Designed a 5-dimension verbal evaluation and 2 decision tasks; contributed to research
-          design, experiments, evaluation, and iterative refinement throughout.</li>
-        <li><strong>Half of the evaluated SOTA models score below 0.50</strong>; the best reaches only
+          design, experiments, evaluation, and iterative refinement.</li>
+        <li><strong>Half of the evaluated models score below 0.50</strong>; the best reaches
           <strong>0.720</strong>. Weakest dimensions are <strong>deception reasoning</strong> and
-          <strong>counterfactual trade-off</strong>, while persuasive generation stays strong —
-          i.e. <strong>fluency &ne; strategic correctness</strong>.</li>
-        <li>Two controlled interventions separated distinct failure paths, showing that models can
-          mistake another speaker&rsquo;s persuasive utterance for an instruction.</li>
+          <strong>counterfactual trade-off</strong> while persuasive generation stays strong —
+          <strong>fluency &ne; strategic correctness</strong>.</li>
+        <li>Two controlled interventions separated distinct failure paths, showing models can
+          mistake another speaker's persuasive utterance for an instruction.</li>
       </ul>
     </div>
 
@@ -328,11 +398,11 @@ footer{
       <p class="entry-m">Preprint<span class="sep">·</span>Co-author (3 of 9)</p>
       <ul class="bul">
         <li>Contributed to a dataset from a public geo-guessing platform: <strong>740K users,
-          2.7M locations, 25M human response records</strong>, with human accuracy used to calibrate
+          2.7M locations, 25M human response records</strong>, with human accuracy calibrating
           item difficulty.</li>
-        <li>Multi-step geographic reasoning improved standard geolocation metrics by up to
-          <strong>25%</strong>; scoring the <strong>reasoning process</strong> rather than only the
-          final answer added a further <strong>9%</strong>.</li>
+        <li>Multi-step geographic reasoning improved standard metrics by up to <strong>25%</strong>;
+          scoring the <strong>reasoning process</strong> rather than only the final answer added a
+          further <strong>9%</strong>.</li>
       </ul>
     </div>
 
@@ -344,8 +414,8 @@ footer{
   <div class="label">Honors</div>
   <div class="body">
     <ul class="plain">
-      <li><strong>China National Scholarship</strong> — national level, top ~1% nationally · 2023–2024</li>
-      <li>Northeastern University Comprehensive Scholarship · 2023–2026</li>
+      <li><strong>China National Scholarship</strong> — national level · 2023–2024</li>
+      <li>Northeastern University Comprehensive Scholarship · 2024–2026</li>
       <li><strong>Third Prize, National Finals</strong>, Lanqiao Cup Programming Competition · 2024</li>
     </ul>
   </div>
@@ -356,9 +426,9 @@ footer{
   <div class="label">Skills</div>
   <div class="body">
     <ul class="plain">
-      <li><span class="k">Languages</span>C++, Python, Java</li>
+      <li><span class="k">Languages</span>Python, C++, Java</li>
       <li><span class="k">ML / research</span>PyTorch, Hugging Face Transformers</li>
-      <li><span class="k">Human languages</span>Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026</li>
+      <li><span class="k">English</span>IELTS Academic — taken 4 September 2026 (score to follow); CET-6 534</li>
     </ul>
   </div>
 </section>
@@ -374,7 +444,7 @@ footer{
 </section>
 
 <footer>
-  Yuan Huang · Northeastern University, Shenyang, China · last updated August 2026
+  Yuan Huang · Northeastern University, Shenyang, China · updated August 2026
 </footer>
 
 </div>

@@ -3,13 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yuan Huang — LLM Evaluation &amp; Interpretability</title>
-<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Trustworthy and human-centered evaluation of large multimodal language models, and mechanistic accounts of judge bias.">
-
-<!-- ============ SEO / disambiguation. Keep these: there is a different, well-known
-     "Yue Huang" (Notre Dame) publishing in the same subfield. ============ -->
-<meta property="og:title" content="Yuan Huang — LLM Evaluation & Interpretability">
-<meta property="og:description" content="Undergraduate researcher, Northeastern University China. Trustworthy evaluation of large multimodal language models.">
+<title>Yuan Huang — Evaluation Validity for Multimodal Judges</title>
+<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Counterfactual auditing of MLLM judges, benchmark design from real human behavior, and measurement validity in LLM evaluation.">
+<meta property="og:title" content="Yuan Huang — Evaluation Validity for Multimodal Judges">
+<meta property="og:description" content="Undergraduate researcher, Northeastern University China. Auditing the systems that score other models.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://yuan4629.github.io/PersonalPage/">
 <link rel="canonical" href="https://yuan4629.github.io/PersonalPage/">
@@ -20,280 +17,131 @@
 
 <style>
 :root{
-  --paper:#F2F3EF;
-  --paper-2:#E8EAE3;
-  --ink:#15181A;
-  --ink-2:#4C5457;
-  --ink-3:#7C8489;
+  --paper:#F2F3EF; --paper-2:#E8EAE3;
+  --ink:#15181A; --ink-2:#4C5457; --ink-3:#7C8489;
   --rule:#D2D7CD;
-  --pine:#24564A;
-  --oxide:#93382B;
-  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --pine:#24564A; --oxide:#93382B;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   --gutter:132px;
 }
-
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--serif);
-  font-size:17px;
-  line-height:1.62;
-  font-feature-settings:"onum" 1;
-}
-
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;font-feature-settings:"onum" 1}
 .wrap{max-width:940px;margin:0 auto;padding:0 28px 100px}
-
 a{color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.32)}
 a:hover{border-bottom-color:var(--pine)}
 a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
 
-/* ---------- masthead ---------- */
 .mast{padding:76px 0 40px;border-bottom:1px solid var(--rule)}
-.name{
-  font-family:var(--mono);
-  font-weight:600;
-  font-size:clamp(2.1rem,6vw,3.05rem);
-  letter-spacing:-.045em;
-  line-height:1.02;
-  margin:0;
-}
-.name .cn{
-  font-size:.42em;
-  letter-spacing:.06em;
-  color:var(--ink-3);
-  font-weight:400;
-  margin-left:.7em;
-  vertical-align:.32em;
-}
-.tagline{
-  margin:20px 0 0;
-  max-width:37em;
-  font-size:1.09rem;
-  color:var(--ink-2);
-}
+.name{font-family:var(--mono);font-weight:600;font-size:clamp(2.1rem,6vw,3.05rem);
+  letter-spacing:-.045em;line-height:1.02;margin:0}
+.name .cn{font-size:.42em;letter-spacing:.06em;color:var(--ink-3);font-weight:400;
+  margin-left:.7em;vertical-align:.32em}
+.tagline{margin:20px 0 0;max-width:38em;font-size:1.09rem;color:var(--ink-2)}
 .tagline strong{color:var(--ink);font-weight:600}
-
-.links{
-  margin-top:26px;
-  font-family:var(--mono);
-  font-size:.78rem;
-  letter-spacing:.02em;
-  display:flex;
-  flex-wrap:wrap;
-  gap:0 22px;
-  line-height:2.1;
-}
+.links{margin-top:26px;font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;
+  display:flex;flex-wrap:wrap;gap:0 22px;line-height:2.1}
 .links a{border-bottom:1px solid var(--rule)}
 
-/* ---------- section grid: mono label in gutter ---------- */
-.sec{
-  display:grid;
-  grid-template-columns:var(--gutter) 1fr;
-  gap:0 34px;
-  padding:46px 0;
-  border-bottom:1px solid var(--rule);
-}
+.sec{display:grid;grid-template-columns:var(--gutter) 1fr;gap:0 34px;
+  padding:46px 0;border-bottom:1px solid var(--rule)}
 .sec:last-of-type{border-bottom:0}
-.label{
-  font-family:var(--mono);
-  font-size:.7rem;
-  font-weight:500;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:var(--ink-3);
-  padding-top:.42em;
-}
+.label{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-3);padding-top:.42em}
 .body>*:first-child{margin-top:0}
 .body>*:last-child{margin-bottom:0}
 p{margin:0 0 1.05em}
 .body p{max-width:38em}
 
-/* ---------- signature: the verdict panel ---------- */
-.verdict{
-  background:var(--paper-2);
-  border:1px solid var(--rule);
-  padding:26px 26px 22px;
-  margin:4px 0 0;
-}
-.verdict-head{
-  font-family:var(--mono);
-  font-size:.72rem;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  color:var(--ink-3);
-  margin-bottom:18px;
-}
-.rig{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
-.stim{flex:0 0 128px}
-.stim svg{display:block;width:128px;height:128px;border:1px solid var(--rule)}
-.stim-cap{
-  font-family:var(--mono);
-  font-size:.65rem;
-  color:var(--ink-3);
-  letter-spacing:.03em;
-  margin-top:8px;
-  line-height:1.5;
-}
-.panel{flex:1 1 300px;min-width:260px}
+/* ---- signature: the order-swap rig ---- */
+.rig{background:var(--paper-2);border:1px solid var(--rule);padding:24px 24px 20px;margin:6px 0 0}
+.rig-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.slots{display:flex;gap:14px;margin-bottom:16px}
+.slot{flex:1 1 0;min-width:0;border:1px solid var(--rule);background:var(--paper);padding:12px}
+.slot-k{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:8px}
+.slot svg{display:block;width:100%;height:74px}
+.slot-v{font-family:var(--mono);font-size:.7rem;margin-top:9px;letter-spacing:.03em;
+  color:var(--ink-3);transition:color .3s ease}
+.slot.win .slot-v{color:var(--pine);font-weight:600}
+.slot.win{border-color:var(--pine)}
 
-.conds{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
-.cond{
-  font-family:var(--mono);
-  font-size:.75rem;
-  text-align:left;
-  padding:9px 12px;
-  border:1px solid var(--rule);
-  background:transparent;
-  color:var(--ink-2);
-  cursor:pointer;
-  line-height:1.4;
-  transition:background .18s ease,border-color .18s ease,color .18s ease;
-}
-.cond:hover{border-color:var(--ink-3)}
-.cond[aria-pressed="true"]{
-  background:var(--ink);
-  border-color:var(--ink);
-  color:var(--paper);
-}
-.cond:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+.swap{font-family:var(--mono);font-size:.75rem;padding:9px 14px;border:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);cursor:pointer;letter-spacing:.02em}
+.swap:hover{opacity:.86}
+.swap:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+.rig-read{font-family:var(--mono);font-size:.72rem;color:var(--ink-2);
+  margin-top:14px;line-height:1.65;min-height:2.9em}
 
-.meter{margin-top:4px}
-.meter-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:baseline;
-  font-family:var(--mono);
-  font-size:.72rem;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  color:var(--ink-3);
-  margin-bottom:9px;
-}
-.score{
-  font-size:1.32rem;
-  letter-spacing:-.02em;
-  color:var(--ink);
-  font-weight:600;
-  text-transform:none;
-  font-variant-numeric:tabular-nums;
-}
-.delta{font-size:.78rem;font-weight:500;letter-spacing:0;text-transform:none}
-.delta.down{color:var(--oxide)}
-.delta.up{color:var(--pine)}
-.track{height:9px;background:#DDE0D8;position:relative;overflow:hidden}
-.fill{
-  position:absolute;inset:0 auto 0 0;
-  background:var(--pine);
-  width:64%;
-  transition:width .5s cubic-bezier(.4,0,.2,1);
-}
-.baseline{
-  position:absolute;top:-3px;bottom:-3px;
-  width:1px;background:var(--ink);
-  left:64%;
-}
-.readout{
-  font-family:var(--mono);
-  font-size:.72rem;
-  color:var(--ink-2);
-  margin-top:12px;
-  line-height:1.6;
-  min-height:3.2em;
-}
-.schematic{
-  font-family:var(--mono);
-  font-size:.65rem;
-  color:var(--ink-3);
-  letter-spacing:.03em;
-  margin-top:16px;
-  padding-top:12px;
-  border-top:1px solid var(--rule);
-}
+.ratio{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule)}
+.ratio-row{display:grid;grid-template-columns:118px 1fr 58px;gap:0 12px;align-items:center;
+  margin-bottom:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.03em}
+.ratio-row .lb{color:var(--ink-3);text-transform:uppercase}
+.ratio-bar{height:8px;background:#DDE0D8;position:relative;overflow:hidden}
+.ratio-bar i{position:absolute;inset:0 auto 0 0;display:block;background:var(--ink-3)}
+.ratio-row.hot .ratio-bar i{background:var(--oxide)}
+.ratio-row .vv{text-align:right;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
 
-/* ---------- publications ---------- */
-.pub{padding:0 0 26px;margin:0 0 26px;border-bottom:1px solid var(--rule)}
+/* ---- stat strip ---- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:4px 0 0}
+.stat{background:var(--paper);padding:14px 14px 12px}
+.stat b{display:block;font-family:var(--mono);font-size:1.12rem;font-weight:600;
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:5px;line-height:1.5}
+
+/* ---- findings ---- */
+.find{list-style:none;margin:0;padding:0;counter-reset:f}
+.find li{counter-increment:f;padding:13px 0 13px 40px;position:relative;
+  border-bottom:1px solid rgba(210,215,205,.65);font-size:.99rem;max-width:40em}
+.find li:last-child{border-bottom:0}
+.find li::before{content:counter(f,decimal-leading-zero);position:absolute;left:0;top:15px;
+  font-family:var(--mono);font-size:.68rem;color:var(--ink-3);letter-spacing:.06em}
+
+/* ---- self-audit ledger ---- */
+.ledger{border-left:2px solid var(--oxide);padding:2px 0 2px 18px;margin:0 0 18px;max-width:39em}
+.ledger dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--oxide);
+  text-transform:uppercase;margin-top:14px}
+.ledger dt:first-child{margin-top:0}
+.ledger dd{margin:4px 0 0;font-size:.96rem;color:var(--ink-2)}
+
+/* ---- through-line ---- */
+.thread{margin:4px 0 0;border-top:1px solid var(--rule);max-width:40em}
+.thread .row{display:grid;grid-template-columns:158px 1fr;gap:0 18px;padding:11px 0;
+  border-bottom:1px solid rgba(210,215,205,.65);font-size:.97rem;align-items:baseline}
+.thread .dm{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-3)}
+.thread .ne{color:var(--ink-2)}
+.thread .ne b{color:var(--ink);font-weight:600}
+.pull{font-size:1.06rem;color:var(--ink);max-width:35em;margin:24px 0 0;
+  padding-left:18px;border-left:2px solid var(--pine)}
+
+/* ---- publications ---- */
+.pub{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid var(--rule)}
 .pub:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
-.pub-t{font-size:1.05rem;font-weight:600;line-height:1.4;margin:0 0 7px;max-width:34em}
-.pub-a{font-size:.94rem;color:var(--ink-2);margin:0 0 9px;max-width:40em}
+.pub-t{font-size:1.04rem;font-weight:600;line-height:1.4;margin:0 0 7px;max-width:34em}
+.pub-a{font-size:.93rem;color:var(--ink-2);margin:0 0 9px;max-width:40em}
 .me{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pine)}
-.pub-m{
-  font-family:var(--mono);
-  font-size:.73rem;
-  letter-spacing:.02em;
-  color:var(--ink-2);
-  display:flex;
-  flex-wrap:wrap;
-  gap:0 14px;
-  line-height:1.9;
-}
-.chip{
-  border:1px solid var(--rule);
-  padding:1px 8px;
-  color:var(--ink-3);
-  text-transform:uppercase;
-  letter-spacing:.09em;
-  font-size:.65rem;
-}
+.pub-m{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-2);
+  display:flex;flex-wrap:wrap;gap:0 14px;line-height:1.9}
+.chip{border:1px solid var(--rule);padding:1px 8px;color:var(--ink-3);text-transform:uppercase;
+  letter-spacing:.09em;font-size:.64rem}
 .chip.hot{border-color:var(--pine);color:var(--pine)}
-.pub-note{
-  font-size:.92rem;
-  color:var(--ink-2);
-  margin:10px 0 0;
-  max-width:38em;
-  padding-left:14px;
-  border-left:2px solid var(--rule);
-}
+.pub-note{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;max-width:38em;
+  padding-left:14px;border-left:2px solid var(--rule)}
 
-/* ---------- news ---------- */
-.news{list-style:none;margin:0;padding:0}
-.news li{
-  display:grid;
-  grid-template-columns:88px 1fr;
-  gap:0 16px;
-  padding:8px 0;
-  border-bottom:1px solid rgba(210,215,205,.6);
-  font-size:.97rem;
-}
-.news li:last-child{border-bottom:0}
-.news time{
-  font-family:var(--mono);
-  font-size:.72rem;
-  color:var(--ink-3);
-  letter-spacing:.04em;
-  padding-top:.35em;
-}
-
-/* ---------- lists ---------- */
 .plain{list-style:none;margin:0;padding:0}
-.plain li{
-  padding:7px 0;
-  border-bottom:1px solid rgba(210,215,205,.6);
-  font-size:.97rem;
-}
+.plain li{padding:7px 0;border-bottom:1px solid rgba(210,215,205,.6);font-size:.97rem}
 .plain li:last-child{border-bottom:0}
-.k{
-  font-family:var(--mono);
-  font-size:.72rem;
-  letter-spacing:.07em;
-  text-transform:uppercase;
-  color:var(--ink-3);
-  display:block;
-  margin-bottom:2px;
-}
+.k{font-family:var(--mono);font-size:.71rem;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);display:block;margin-bottom:2px}
 
-footer{
-  padding:40px 0 0;
-  font-family:var(--mono);
-  font-size:.7rem;
-  letter-spacing:.05em;
-  color:var(--ink-3);
-  border-top:1px solid var(--rule);
-  margin-top:46px;
-}
+footer{padding:38px 0 0;font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;
+  color:var(--ink-3);border-top:1px solid var(--rule);margin-top:44px}
 
 @media (max-width:760px){
   body{font-size:16px}
@@ -301,27 +149,22 @@ footer{
   .mast{padding:52px 0 32px}
   .sec{grid-template-columns:1fr;gap:14px;padding:36px 0}
   .label{padding-top:0}
-  .news li{grid-template-columns:1fr;gap:2px}
-  .news time{padding-top:0}
-  .stim,.stim svg{flex-basis:96px;width:96px;height:96px}
+  .ratio-row{grid-template-columns:96px 1fr 46px}
+  .thread .row{grid-template-columns:1fr;gap:3px}
 }
-
-@media (prefers-reduced-motion:reduce){
-  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
-}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<!-- ================= MASTHEAD ================= -->
 <header class="mast">
   <h1 class="name">Yuan Huang<span class="cn">黄远</span></h1>
   <p class="tagline">
     Undergraduate researcher in computer science at <strong>Northeastern University, China</strong>.
-    I work on <strong>trustworthy and human-centered evaluation</strong> of large multimodal
-    language models — building benchmarks from real human behavior rather than model self-play,
-    and tracing model failures back to the mechanisms that produce them.
+    I work on <strong>measurement validity in model evaluation</strong>: whether the benchmarks and
+    automatic judges we rank models with are themselves measuring what they claim to. Also on
+    benchmarks built from <strong>large-scale real human behavior</strong> rather than model self-play.
   </p>
   <nav class="links">
     <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a>
@@ -331,101 +174,160 @@ footer{
   </nav>
 </header>
 
-<!-- ================= RESEARCH ================= -->
 <section class="sec">
   <div class="label">Research</div>
   <div class="body">
     <p>
-      Language models are increasingly used as <em>judges</em> — of images, of arguments,
-      of each other. My work asks a narrow version of that question: when a model renders a
-      verdict, what is the verdict actually responding to?
+      Leaderboards for instruction-based image editing increasingly rank models using
+      multimodal LLM judges. Those judges are not themselves audited. My current project asks how
+      much of a judge's score comes from edit quality and how much from surface cues that have
+      nothing to do with it.
     </p>
     <p>
-      Two threads. The first builds evaluation on <strong>large-scale real human behavior</strong>:
-      professionally produced social-deduction gameplay, millions of human geo-guessing records —
-      settings where humans have already supplied the ground truth and the difficulty calibration.
-      The second goes <strong>inside the model</strong>: when a judge gets it wrong, I want a
-      mechanistic account of how the bias formed, not just the behavioral effect.
-    </p>
-    <p>
-      I am currently finishing an independent first-author project on multimodal
-      judge bias, described below.
+      The methodological commitment that runs through the work is narrow and load-bearing:
+      <strong>only admit a perturbation you can show did not change edit quality</strong>. Preservation
+      verification is not a post-hoc sanity check here; it is an admission gate every injector and
+      every metric has to pass first, with coverage reported layer by layer. Each cue also gets a
+      zero-dose sham control, which establishes a floor per judge and per metric — without that
+      floor, a null result is unreadable.
     </p>
   </div>
 </section>
 
-<!-- ================= SIGNATURE PANEL ================= -->
 <section class="sec">
-  <div class="label">Current work</div>
+  <div class="label">The rig</div>
   <div class="body">
-    <p style="margin-bottom:1.3em">
-      <strong>Inside the Unfair Judge.</strong> A multimodal judge can be moved by things that are
-      not in the image. Hold the image byte-for-byte identical, change only the surrounding text,
-      and the score moves. Try it:
+    <p style="margin-bottom:1.25em">
+      The cleanest condition in the study changes nothing at all. Same two candidate edits,
+      same images, same prompt text — only the order in which they are presented to the judge.
     </p>
 
-    <div class="verdict">
-      <div class="verdict-head">Same stimulus · three prompt conditions</div>
-      <div class="rig">
-
-        <div class="stim">
-          <svg viewBox="0 0 100 100" role="img" aria-label="Abstract stimulus image, held constant across all conditions">
-            <defs>
-              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#31605A"/>
-                <stop offset="1" stop-color="#1B3A3B"/>
-              </linearGradient>
-            </defs>
-            <rect width="100" height="100" fill="url(#g)"/>
-            <circle cx="63" cy="34" r="13" fill="#D8DCCF" opacity=".85"/>
-            <path d="M0 78 L26 52 L47 70 L69 44 L100 72 L100 100 L0 100 Z" fill="#0F2426" opacity=".72"/>
-            <path d="M0 88 L31 66 L58 84 L100 58 L100 100 L0 100 Z" fill="#0A191B"/>
+    <div class="rig">
+      <div class="rig-head">Pairwise judgment · protocol-level swap</div>
+      <div class="slots">
+        <div class="slot win" id="s1">
+          <div class="slot-k" id="k1">Position 1</div>
+          <svg viewBox="0 0 100 56" role="img" aria-label="Candidate edit A">
+            <rect width="100" height="56" fill="#31605A"/>
+            <circle cx="70" cy="17" r="8" fill="#D8DCCF" opacity=".85"/>
+            <path d="M0 44 L24 28 L44 40 L66 24 L100 42 L100 56 L0 56 Z" fill="#0F2426" opacity=".75"/>
           </svg>
-          <div class="stim-cap">identical<br>across conditions</div>
+          <div class="slot-v" id="v1">preferred</div>
         </div>
-
-        <div class="panel">
-          <div class="conds">
-            <button class="cond" type="button" data-s="64" data-d="0"
-              data-r="Baseline. Image plus a neutral instruction to rate quality."
-              aria-pressed="true">A · image only</button>
-            <button class="cond" type="button" data-s="49" data-d="-15"
-              data-r="A caption line is attached to the item. Nothing about the image changed — the score drops."
-              aria-pressed="false">B · + caption line</button>
-            <button class="cond" type="button" data-s="79" data-d="+15"
-              data-r="&ldquo;Most reviewers preferred it&rdquo; is inserted into the prompt. Same pixels, higher verdict."
-              aria-pressed="false">C · + social cue</button>
-          </div>
-
-          <div class="meter">
-            <div class="meter-top">
-              <span>Judge score</span>
-              <span><span class="score" id="score">64</span><span class="delta" id="delta"></span></span>
-            </div>
-            <div class="track">
-              <div class="fill" id="fill"></div>
-              <div class="baseline" title="condition A baseline"></div>
-            </div>
-            <div class="readout" id="readout">Baseline. Image plus a neutral instruction to rate quality.</div>
-          </div>
+        <div class="slot" id="s2">
+          <div class="slot-k" id="k2">Position 2</div>
+          <svg viewBox="0 0 100 56" role="img" aria-label="Candidate edit B">
+            <rect width="100" height="56" fill="#3A5560"/>
+            <rect x="12" y="12" width="26" height="18" fill="#D8DCCF" opacity=".8"/>
+            <path d="M0 46 L30 32 L58 44 L100 30 L100 56 L0 56 Z" fill="#16282F" opacity=".78"/>
+          </svg>
+          <div class="slot-v" id="v2">not preferred</div>
         </div>
       </div>
-      <div class="schematic">
-        Schematic illustration of the reported effect. The numbers shown are placeholders, not measured results.
+      <button class="swap" type="button" id="swap">Swap the presentation order</button>
+      <div class="rig-read" id="read">
+        Nothing has been altered yet. Both candidates are shown in their original positions.
+      </div>
+
+      <div class="ratio">
+        <div class="ratio-row">
+          <span class="lb">Judge self-noise</span>
+          <span class="ratio-bar"><i style="width:2.6%"></i></span>
+          <span class="vv">1×</span>
+        </div>
+        <div class="ratio-row hot">
+          <span class="lb">Order swap only</span>
+          <span class="ratio-bar"><i style="width:100%"></i></span>
+          <span class="vv">38.2×</span>
+        </div>
       </div>
     </div>
 
-    <p style="margin-top:1.4em">
-      Beyond documenting the effect, the paper gives a mechanistic account of how the bias forms
-      inside the model. I also evaluated three widely used debiasing strategies; none of them
-      restored the correct judgment.
+    <p style="margin-top:1.35em">
+      On the replication arm, a pure protocol-level reordering flips decisions at
+      <strong>38.2 times the judge's own self-noise rate</strong>. No pixel and no token of the
+      prompt has moved.
     </p>
   </div>
 </section>
 
-<!-- ================= PUBLICATIONS ================= -->
 <section class="sec">
-  <div class="label">Publications</div>
+  <div class="label">Scale</div>
+  <div class="body">
+    <div class="stats">
+      <div class="stat"><b>97,973</b><span>judgments, 1:1 with raw responses</span></div>
+      <div class="stat"><b>13</b><span>cue conditions, 4 injection levels</span></div>
+      <div class="stat"><b>5 + 1</b><span>judges, plus a separate replication arm</span></div>
+      <div class="stat"><b>3</b><span>disjoint content pools</span></div>
+      <div class="stat"><b>0.8930</b><span>inter-annotator κ, 3 rounds — equal to κ<sub>max</sub></span></div>
+      <div class="stat"><b>0.300%</b><span>parse failure rate</span></div>
+    </div>
+    <p style="margin-top:1.3em">
+      Cues span four injection sites — protocol level (order only), pixel level, content level, and
+      prompt level — plus a null-perturbation control. Base images come from five public sources,
+      passed through a text / sha1 / ORB near-duplicate gate to yield three mutually independent
+      pools. The replication arm carries its own Benjamini–Hochberg family and is never pooled with
+      the main judge list.
+    </p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="label">Findings</div>
+  <div class="body">
+    <ol class="find">
+      <li>Protocol-level reordering alone flips pairwise decisions at 38.2× the judge's self-noise.</li>
+      <li>Five pixel- and content-level cues depress scores consistently across 5/5 judges;
+          a bandwagon cue is the only one that consistently inflates across 5/5.</li>
+      <li>Only one cue holds up across both judges and content pools. Most of the rest are
+          order-preserving depressions: they move the absolute score without moving the ranking.</li>
+      <li>Rubric-style scoring buys absolute-score stability but not rank stability — a counterexample
+          to the common assumption that a rubric makes a judge more reliable.</li>
+      <li>Of three mitigation layers, only the protocol-level one works, and follow-up analysis shows
+          its mechanism is <em>abstention</em>, not debiasing. Prompt-level mitigation is near
+          coin-flip; ensemble median is worse than doing nothing.</li>
+      <li>A 5/5 null result on a skin-tone attribute — readable only because same-batch positive
+          controls fired. Testing specificity alone would certify a judge that never alarms as the
+          best-calibrated one: revocation sensitivity was 0.032 for one judge and 0.946 for another
+          on identical data.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="label">Self-audit</div>
+  <div class="body">
+    <p>
+      I spent comparable effort on whether to believe my own results. The repository carries 1,307
+      unit tests and 109 frozen artifacts, each with a sha256, its producer, and a field recording
+      what that table must <em>not</em> be read as. There is a single reconstruction path with
+      byte-level comparison after a full rebuild, and the anonymized delivery package re-verifies
+      itself: 1,289 tests pass inside the package, and 112 analysis tables rebuilt from raw
+      judgments come out byte-identical to the repository.
+    </p>
+    <p>Four times the audit overturned a conclusion I had already written down:</p>
+    <dl class="ledger">
+      <dt>Clustering not applied</dt>
+      <dd>Claim B's significant cells corrected from 13/40 down to 2/40.</dd>
+      <dt>Mechanism misread</dt>
+      <dd>"Protocol-level mitigation debiases the judge" reclassified as abstention.</dd>
+      <dt>Control was missing</dt>
+      <dd>"This cue is the only one breaking preservation" refuted by my own added control.</dd>
+      <dt>Cost accounting</dt>
+      <dd>Dashboard-delta method understated spend by ~19%; replaced with a per-call ledger.</dd>
+    </dl>
+    <p>
+      Selecting a human-anchor dataset surfaced two contamination modes: one candidate shared 70% of
+      its base images with a dataset already in use, and another's advertised human scores turned out
+      to be machine scores from an automatic metric — adopting it would have made the argument
+      circular. These and other cases are collected into a running list of 27 silent analysis-layer
+      failure modes, each of which had produced a publication-ready wrong number in this project.
+    </p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="label">Papers</div>
   <div class="body">
 
     <article class="pub">
@@ -435,14 +337,31 @@ footer{
         <span class="chip hot">EMNLP 2026 Main</span>
         <span>Co-first author</span>
         <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>
+        <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a>
       </div>
       <p class="pub-note">
-        A benchmark built from 100+ hours of professionally produced human social-deduction
-        gameplay — 32.4M utterance tokens, 30 roles, 15 rule variants — using winning-side MVP
-        strategy trajectories as ground truth instead of LLM self-play. Half the SOTA models
-        evaluated score below 0.50; the strongest reaches 0.720. The weakest dimensions are
-        deception reasoning and counterfactual trade-off, while persuasive generation stays
-        strong: fluency is not strategic correctness.
+        A benchmark built from 100+ hours of professionally produced human social-deduction gameplay
+        — 32.4M utterance tokens, 30 roles, 15 rule variants — using winning-side MVP strategy
+        trajectories as ground truth instead of LLM self-play. Half the models evaluated score below
+        0.50; the strongest reaches 0.720. Weakest dimensions are deception reasoning and
+        counterfactual trade-off while persuasive generation stays strong: fluency is not strategic
+        correctness.
+      </p>
+    </article>
+
+    <article class="pub">
+      <h2 class="pub-t">EditJudgeBias: A Preservation-Gated Counterfactual Audit of MLLM Judges for Instruction-Based Image Editing</h2>
+      <p class="pub-a"><span class="me">Yuan Huang</span></p>
+      <div class="pub-m">
+        <span class="chip">In preparation</span>
+        <span>Sole first author · conception through writing</span>
+      </div>
+      <p class="pub-note">
+        Described above. Complementary to representation-level accounts of judge bias
+        (Xu et al., arXiv:2607.11871): that line asks what happens inside a text judge when it
+        scores unfairly; this one asks whether a multimodal judge's score can be trusted as a
+        measurement at all, and supplies the admission gate and null-readability machinery needed
+        to answer that.
       </p>
     </article>
 
@@ -452,101 +371,118 @@ footer{
       <div class="pub-m">
         <span class="chip">Preprint</span>
         <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
+        <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
+        <a href="https://github.com/yuan4629/Geocomp">Code</a>
       </div>
       <p class="pub-note">
-        740K users, 2.7M locations, 25M human response records, with human accuracy used to
-        calibrate item difficulty. Multi-step geographic reasoning improves standard geolocation
-        metrics by up to 25%; scoring the reasoning process rather than only the final answer
-        adds a further 9%.
+        740K users, 2.7M locations, 25M human response records, with human accuracy calibrating item
+        difficulty. Multi-step geographic reasoning improves standard metrics by up to 25%; scoring
+        the reasoning process rather than the final answer adds a further 9%.
       </p>
-    </article>
-
-    <article class="pub">
-      <h2 class="pub-t">Inside the Unfair Judge: A Mechanistic Interpretability Account of MLLM-as-Judge Bias</h2>
-      <p class="pub-a"><span class="me">Yuan Huang</span></p>
-      <div class="pub-m">
-        <span class="chip">In preparation</span>
-        <span>Sole first author · conception through writing</span>
-      </div>
     </article>
 
   </div>
 </section>
 
-<!-- ================= NEWS ================= -->
 <section class="sec">
-  <div class="label">News</div>
+  <div class="label">Direction</div>
   <div class="body">
-    <ul class="news">
-      <li><time>2026 · 10</time><span>Our social-deduction benchmark paper is accepted to <strong>EMNLP 2026 Main</strong>.</span></li>
-      <li><time>2026</time><span>Started an independent first-author project on mechanistic interpretability of multimodal judge bias.</span></li>
-      <li><time>2025 · 02</time><span>Geolocation dataset and reasoning framework released as a preprint.</span></li>
-      <li><time>2024</time><span>Awarded the <strong>China National Scholarship</strong>.</span></li>
+    <p>
+      The three projects above are the same question asked three times.
+    </p>
+
+    <div class="thread">
+      <div class="row"><span class="dm">Geolocation</span>
+        <span class="ne">A correct answer is not a <b>correct reasoning process</b>.</span></div>
+      <div class="row"><span class="dm">Social deduction</span>
+        <span class="ne">Persuasive language is not <b>strategic correctness</b>.</span></div>
+      <div class="row"><span class="dm">Multimodal judging</span>
+        <span class="ne">A verdict that looks right is not a verdict that <b>used the right evidence</b>.</span></div>
+    </div>
+
+    <p style="margin-top:1.3em">
+      Each time, surface competence and underlying competence come apart — and our instruments
+      mostly measure the first. That is the question I expect to spend years on:
+      <strong>why can a language model be this fluent and this capable at the surface, and still
+      lack robust reasoning, strategy, and depth? What is missing between generating language and
+      thinking?</strong>
+    </p>
+
+    <p>I want to work on it at three levels.</p>
+
+    <ol class="find">
+      <li><strong>Measure the gap.</strong> Evaluation grounded in real human behavior and real
+        cognitive process, designed to separate surface success from the capacity it stands in for.
+        This is what the work so far has been.</li>
+      <li><strong>Explain it.</strong> Mechanistic accounts of what inside the model produces the
+        failure, rather than one more report that it fails.</li>
+      <li><strong>Close it.</strong> Interventions that change the underlying process instead of the
+        benchmark number. A gain that leaves the process untouched is the failure mode here, not
+        the goal.</li>
+    </ol>
+
+    <p class="pull">
+      Further out: what computational process turns language generation into reasoning, conceptual
+      restructuring, and discovery? The aim is not a model that writes more like someone who thinks.
+      It is a science of machine thought, and a smaller gap between fluency and thought.
+    </p>
+
+    <ul class="plain" style="margin-top:26px">
+      <li><span class="k">Also under way · PromptChecker</span>
+        Instructions arrive one at a time, and an instruction is usually not enough to specify the
+        problem. A model that answers immediately is answering a question that was never fully
+        asked. The direction: reconstruct what the user actually needs before responding, and treat
+        <em>&ldquo;I do not yet have enough to act&rdquo;</em> as a first-class output rather than a
+        failure to comply.</li>
     </ul>
   </div>
 </section>
 
-<!-- ================= EDUCATION / AWARDS ================= -->
 <section class="sec">
   <div class="label">Background</div>
   <div class="body">
     <ul class="plain">
-      <li>
-        <span class="k">Education</span>
+      <li><span class="k">Education</span>
         <strong>B.Eng. Computer Science and Technology</strong>, Northeastern University, China ·
-        2023–2027 (expected mid-2027) · CGPA 4.05/5.00 (90/100) · <strong>Rank 5 / 100</strong> in cohort
-      </li>
-      <li>
-        <span class="k">Awards</span>
+        2023–2027 (expected mid-2027) · CGPA 4.05/5.00 (90/100) · <strong>Rank 5 / 100</strong></li>
+      <li><span class="k">Research advising</span>
+        Advised by Shiqi Zhao, Brain-Computer Interface and Hardware Acceleration Lab,
+        Northeastern University, since 2024
+        <!-- TODO: confirm the exact romanization and academic title from the lab page --></li>
+      <li><span class="k">Awards</span>
         China National Scholarship (national level, 2023–24) ·
         NEU Comprehensive Scholarship (2024–26) ·
-        Third Prize, National Finals, Lanqiao Cup Programming Competition (2024)
-      </li>
-      <li>
-        <span class="k">Technical</span>
-        Python, C++, Java · PyTorch, Hugging Face Transformers
-      </li>
-      <li>
-        <span class="k">Languages</span>
-        Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026
-      </li>
+        Third Prize, National Finals, Lanqiao Cup Programming Competition (2024)</li>
+      <li><span class="k">Technical</span>
+        Python, C++, Java · PyTorch, Hugging Face Transformers</li>
+      <li><span class="k">Languages</span>
+        Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026</li>
     </ul>
   </div>
 </section>
 
-<footer>
-  Yuan Huang · Northeastern University, Shenyang, China · last updated August 2026
-</footer>
-
+<footer>Yuan Huang · Northeastern University, Shenyang, China · updated August 2026</footer>
 </div>
 
 <script>
 (function(){
-  var btns = document.querySelectorAll('.cond');
-  var fill = document.getElementById('fill');
-  var score = document.getElementById('score');
-  var delta = document.getElementById('delta');
-  var readout = document.getElementById('readout');
-
-  function set(btn){
-    btns.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
-    var s = parseInt(btn.dataset.s, 10);
-    var d = btn.dataset.d;
-    fill.style.width = s + '%';
-    score.textContent = s;
-    if(d === '0'){
-      delta.textContent = '';
-      delta.className = 'delta';
-      fill.style.background = 'var(--pine)';
-    } else {
-      delta.textContent = '  ' + d;
-      delta.className = 'delta ' + (d.charAt(0) === '-' ? 'down' : 'up');
-      fill.style.background = d.charAt(0) === '-' ? 'var(--oxide)' : 'var(--pine)';
-    }
-    readout.innerHTML = btn.dataset.r;
-  }
-
-  btns.forEach(function(b){ b.addEventListener('click', function(){ set(b); }); });
+  var swapped=false;
+  var k1=document.getElementById('k1'),k2=document.getElementById('k2');
+  var v1=document.getElementById('v1'),v2=document.getElementById('v2');
+  var s1=document.getElementById('s1'),s2=document.getElementById('s2');
+  var read=document.getElementById('read');
+  document.getElementById('swap').addEventListener('click',function(){
+    swapped=!swapped;
+    k1.textContent=swapped?'Position 2':'Position 1';
+    k2.textContent=swapped?'Position 1':'Position 2';
+    v1.textContent=swapped?'not preferred':'preferred';
+    v2.textContent=swapped?'preferred':'not preferred';
+    s1.classList.toggle('win',!swapped);
+    s2.classList.toggle('win',swapped);
+    read.textContent=swapped
+      ? 'Only the presentation order changed. The judge now prefers the other candidate — the same two images, the same prompt, the opposite verdict.'
+      : 'Back to the original order. The verdict returns with it.';
+  });
 })();
 </script>
 </body>
