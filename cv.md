@@ -1,6 +1,6 @@
 # Yuan Huang (黄远)
 
-huangyuan4629@gmail.com · +86 191 6050 6039
+huangyuan4629@gmail.com
 [Homepage](https://yuan4629.github.io/PersonalPage/) · [Google Scholar](https://scholar.google.com/citations?user=eN-CIw4AAAAJ&hl=en) · [GitHub](https://github.com/yuan4629)
 Northeastern University, Shenyang, China
 
