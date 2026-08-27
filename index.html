@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yuan Huang — LLM Evaluation &amp; Interpretability</title>
+<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Trustworthy and human-centered evaluation of large multimodal language models, and mechanistic accounts of judge bias.">
+
+<!-- ============ SEO / disambiguation. Keep these: there is a different, well-known
+     "Yue Huang" (Notre Dame) publishing in the same subfield. ============ -->
+<meta property="og:title" content="Yuan Huang — LLM Evaluation & Interpretability">
+<meta property="og:description" content="Undergraduate researcher, Northeastern University China. Trustworthy evaluation of large multimodal language models.">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://yuan4629.github.io/PersonalPage/">
+<link rel="canonical" href="https://yuan4629.github.io/PersonalPage/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#F2F3EF;
+  --paper-2:#E8EAE3;
+  --ink:#15181A;
+  --ink-2:#4C5457;
+  --ink-3:#7C8489;
+  --rule:#D2D7CD;
+  --pine:#24564A;
+  --oxide:#93382B;
+  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --gutter:132px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.62;
+  font-feature-settings:"onum" 1;
+}
+
+.wrap{max-width:940px;margin:0 auto;padding:0 28px 100px}
+
+a{color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.32)}
+a:hover{border-bottom-color:var(--pine)}
+a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+
+/* ---------- masthead ---------- */
+.mast{padding:76px 0 40px;border-bottom:1px solid var(--rule)}
+.name{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:clamp(2.1rem,6vw,3.05rem);
+  letter-spacing:-.045em;
+  line-height:1.02;
+  margin:0;
+}
+.name .cn{
+  font-size:.42em;
+  letter-spacing:.06em;
+  color:var(--ink-3);
+  font-weight:400;
+  margin-left:.7em;
+  vertical-align:.32em;
+}
+.tagline{
+  margin:20px 0 0;
+  max-width:37em;
+  font-size:1.09rem;
+  color:var(--ink-2);
+}
+.tagline strong{color:var(--ink);font-weight:600}
+
+.links{
+  margin-top:26px;
+  font-family:var(--mono);
+  font-size:.78rem;
+  letter-spacing:.02em;
+  display:flex;
+  flex-wrap:wrap;
+  gap:0 22px;
+  line-height:2.1;
+}
+.links a{border-bottom:1px solid var(--rule)}
+
+/* ---------- section grid: mono label in gutter ---------- */
+.sec{
+  display:grid;
+  grid-template-columns:var(--gutter) 1fr;
+  gap:0 34px;
+  padding:46px 0;
+  border-bottom:1px solid var(--rule);
+}
+.sec:last-of-type{border-bottom:0}
+.label{
+  font-family:var(--mono);
+  font-size:.7rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  padding-top:.42em;
+}
+.body>*:first-child{margin-top:0}
+.body>*:last-child{margin-bottom:0}
+p{margin:0 0 1.05em}
+.body p{max-width:38em}
+
+/* ---------- signature: the verdict panel ---------- */
+.verdict{
+  background:var(--paper-2);
+  border:1px solid var(--rule);
+  padding:26px 26px 22px;
+  margin:4px 0 0;
+}
+.verdict-head{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin-bottom:18px;
+}
+.rig{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+.stim{flex:0 0 128px}
+.stim svg{display:block;width:128px;height:128px;border:1px solid var(--rule)}
+.stim-cap{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--ink-3);
+  letter-spacing:.03em;
+  margin-top:8px;
+  line-height:1.5;
+}
+.panel{flex:1 1 300px;min-width:260px}
+
+.conds{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.cond{
+  font-family:var(--mono);
+  font-size:.75rem;
+  text-align:left;
+  padding:9px 12px;
+  border:1px solid var(--rule);
+  background:transparent;
+  color:var(--ink-2);
+  cursor:pointer;
+  line-height:1.4;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+.cond:hover{border-color:var(--ink-3)}
+.cond[aria-pressed="true"]{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:var(--paper);
+}
+.cond:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+
+.meter{margin-top:4px}
+.meter-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  margin-bottom:9px;
+}
+.score{
+  font-size:1.32rem;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  font-weight:600;
+  text-transform:none;
+  font-variant-numeric:tabular-nums;
+}
+.delta{font-size:.78rem;font-weight:500;letter-spacing:0;text-transform:none}
+.delta.down{color:var(--oxide)}
+.delta.up{color:var(--pine)}
+.track{height:9px;background:#DDE0D8;position:relative;overflow:hidden}
+.fill{
+  position:absolute;inset:0 auto 0 0;
+  background:var(--pine);
+  width:64%;
+  transition:width .5s cubic-bezier(.4,0,.2,1);
+}
+.baseline{
+  position:absolute;top:-3px;bottom:-3px;
+  width:1px;background:var(--ink);
+  left:64%;
+}
+.readout{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--ink-2);
+  margin-top:12px;
+  line-height:1.6;
+  min-height:3.2em;
+}
+.schematic{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--ink-3);
+  letter-spacing:.03em;
+  margin-top:16px;
+  padding-top:12px;
+  border-top:1px solid var(--rule);
+}
+
+/* ---------- publications ---------- */
+.pub{padding:0 0 26px;margin:0 0 26px;border-bottom:1px solid var(--rule)}
+.pub:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.pub-t{font-size:1.05rem;font-weight:600;line-height:1.4;margin:0 0 7px;max-width:34em}
+.pub-a{font-size:.94rem;color:var(--ink-2);margin:0 0 9px;max-width:40em}
+.me{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pine)}
+.pub-m{
+  font-family:var(--mono);
+  font-size:.73rem;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  display:flex;
+  flex-wrap:wrap;
+  gap:0 14px;
+  line-height:1.9;
+}
+.chip{
+  border:1px solid var(--rule);
+  padding:1px 8px;
+  color:var(--ink-3);
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:.65rem;
+}
+.chip.hot{border-color:var(--pine);color:var(--pine)}
+.pub-note{
+  font-size:.92rem;
+  color:var(--ink-2);
+  margin:10px 0 0;
+  max-width:38em;
+  padding-left:14px;
+  border-left:2px solid var(--rule);
+}
+
+/* ---------- news ---------- */
+.news{list-style:none;margin:0;padding:0}
+.news li{
+  display:grid;
+  grid-template-columns:88px 1fr;
+  gap:0 16px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(210,215,205,.6);
+  font-size:.97rem;
+}
+.news li:last-child{border-bottom:0}
+.news time{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--ink-3);
+  letter-spacing:.04em;
+  padding-top:.35em;
+}
+
+/* ---------- lists ---------- */
+.plain{list-style:none;margin:0;padding:0}
+.plain li{
+  padding:7px 0;
+  border-bottom:1px solid rgba(210,215,205,.6);
+  font-size:.97rem;
+}
+.plain li:last-child{border-bottom:0}
+.k{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  display:block;
+  margin-bottom:2px;
+}
+
+footer{
+  padding:40px 0 0;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.05em;
+  color:var(--ink-3);
+  border-top:1px solid var(--rule);
+  margin-top:46px;
+}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:0 20px 70px}
+  .mast{padding:52px 0 32px}
+  .sec{grid-template-columns:1fr;gap:14px;padding:36px 0}
+  .label{padding-top:0}
+  .news li{grid-template-columns:1fr;gap:2px}
+  .news time{padding-top:0}
+  .stim,.stim svg{flex-basis:96px;width:96px;height:96px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="mast">
+  <h1 class="name">Yuan Huang<span class="cn">黄远</span></h1>
+  <p class="tagline">
+    Undergraduate researcher in computer science at <strong>Northeastern University, China</strong>.
+    I work on <strong>trustworthy and human-centered evaluation</strong> of large multimodal
+    language models — building benchmarks from real human behavior rather than model self-play,
+    and tracing model failures back to the mechanisms that produce them.
+  </p>
+  <nav class="links">
+    <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a>
+    <a href="https://scholar.google.com/citations?user=eN-CIw4AAAAJ&amp;hl=en">Google Scholar</a>
+    <a href="https://github.com/yuan4629">GitHub</a>
+    <a href="./cv.pdf">CV (PDF)</a>
+  </nav>
+</header>
+
+<!-- ================= RESEARCH ================= -->
+<section class="sec">
+  <div class="label">Research</div>
+  <div class="body">
+    <p>
+      Language models are increasingly used as <em>judges</em> — of images, of arguments,
+      of each other. My work asks a narrow version of that question: when a model renders a
+      verdict, what is the verdict actually responding to?
+    </p>
+    <p>
+      Two threads. The first builds evaluation on <strong>large-scale real human behavior</strong>:
+      professionally produced social-deduction gameplay, millions of human geo-guessing records —
+      settings where humans have already supplied the ground truth and the difficulty calibration.
+      The second goes <strong>inside the model</strong>: when a judge gets it wrong, I want a
+      mechanistic account of how the bias formed, not just the behavioral effect.
+    </p>
+    <p>
+      I am currently finishing an independent first-author project on multimodal
+      judge bias, described below.
+    </p>
+  </div>
+</section>
+
+<!-- ================= SIGNATURE PANEL ================= -->
+<section class="sec">
+  <div class="label">Current work</div>
+  <div class="body">
+    <p style="margin-bottom:1.3em">
+      <strong>Inside the Unfair Judge.</strong> A multimodal judge can be moved by things that are
+      not in the image. Hold the image byte-for-byte identical, change only the surrounding text,
+      and the score moves. Try it:
+    </p>
+
+    <div class="verdict">
+      <div class="verdict-head">Same stimulus · three prompt conditions</div>
+      <div class="rig">
+
+        <div class="stim">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Abstract stimulus image, held constant across all conditions">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#31605A"/>
+                <stop offset="1" stop-color="#1B3A3B"/>
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" fill="url(#g)"/>
+            <circle cx="63" cy="34" r="13" fill="#D8DCCF" opacity=".85"/>
+            <path d="M0 78 L26 52 L47 70 L69 44 L100 72 L100 100 L0 100 Z" fill="#0F2426" opacity=".72"/>
+            <path d="M0 88 L31 66 L58 84 L100 58 L100 100 L0 100 Z" fill="#0A191B"/>
+          </svg>
+          <div class="stim-cap">identical<br>across conditions</div>
+        </div>
+
+        <div class="panel">
+          <div class="conds">
+            <button class="cond" type="button" data-s="64" data-d="0"
+              data-r="Baseline. Image plus a neutral instruction to rate quality."
+              aria-pressed="true">A · image only</button>
+            <button class="cond" type="button" data-s="49" data-d="-15"
+              data-r="A caption line is attached to the item. Nothing about the image changed — the score drops."
+              aria-pressed="false">B · + caption line</button>
+            <button class="cond" type="button" data-s="79" data-d="+15"
+              data-r="&ldquo;Most reviewers preferred it&rdquo; is inserted into the prompt. Same pixels, higher verdict."
+              aria-pressed="false">C · + social cue</button>
+          </div>
+
+          <div class="meter">
+            <div class="meter-top">
+              <span>Judge score</span>
+              <span><span class="score" id="score">64</span><span class="delta" id="delta"></span></span>
+            </div>
+            <div class="track">
+              <div class="fill" id="fill"></div>
+              <div class="baseline" title="condition A baseline"></div>
+            </div>
+            <div class="readout" id="readout">Baseline. Image plus a neutral instruction to rate quality.</div>
+          </div>
+        </div>
+      </div>
+      <div class="schematic">
+        Schematic illustration of the reported effect. The numbers shown are placeholders, not measured results.
+      </div>
+    </div>
+
+    <p style="margin-top:1.4em">
+      Beyond documenting the effect, the paper gives a mechanistic account of how the bias forms
+      inside the model. I also evaluated three widely used debiasing strategies; none of them
+      restored the correct judgment.
+    </p>
+  </div>
+</section>
+
+<!-- ================= PUBLICATIONS ================= -->
+<section class="sec">
+  <div class="label">Publications</div>
+  <div class="body">
+
+    <article class="pub">
+      <h2 class="pub-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</h2>
+      <p class="pub-a">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al. &nbsp;<em>(* equal contribution)</em></p>
+      <div class="pub-m">
+        <span class="chip hot">EMNLP 2026 Main</span>
+        <span>Co-first author</span>
+        <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>
+      </div>
+      <p class="pub-note">
+        A benchmark built from 100+ hours of professionally produced human social-deduction
+        gameplay — 32.4M utterance tokens, 30 roles, 15 rule variants — using winning-side MVP
+        strategy trajectories as ground truth instead of LLM self-play. Half the SOTA models
+        evaluated score below 0.50; the strongest reaches 0.720. The weakest dimensions are
+        deception reasoning and counterfactual trade-off, while persuasive generation stays
+        strong: fluency is not strategic correctness.
+      </p>
+    </article>
+
+    <article class="pub">
+      <h2 class="pub-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</h2>
+      <p class="pub-a">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
+      <div class="pub-m">
+        <span class="chip">Preprint</span>
+        <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
+      </div>
+      <p class="pub-note">
+        740K users, 2.7M locations, 25M human response records, with human accuracy used to
+        calibrate item difficulty. Multi-step geographic reasoning improves standard geolocation
+        metrics by up to 25%; scoring the reasoning process rather than only the final answer
+        adds a further 9%.
+      </p>
+    </article>
+
+    <article class="pub">
+      <h2 class="pub-t">Inside the Unfair Judge: A Mechanistic Interpretability Account of MLLM-as-Judge Bias</h2>
+      <p class="pub-a"><span class="me">Yuan Huang</span></p>
+      <div class="pub-m">
+        <span class="chip">In preparation</span>
+        <span>Sole first author · conception through writing</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section class="sec">
+  <div class="label">News</div>
+  <div class="body">
+    <ul class="news">
+      <li><time>2026 · 10</time><span>Our social-deduction benchmark paper is accepted to <strong>EMNLP 2026 Main</strong>.</span></li>
+      <li><time>2026</time><span>Started an independent first-author project on mechanistic interpretability of multimodal judge bias.</span></li>
+      <li><time>2025 · 02</time><span>Geolocation dataset and reasoning framework released as a preprint.</span></li>
+      <li><time>2024</time><span>Awarded the <strong>China National Scholarship</strong>.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= EDUCATION / AWARDS ================= -->
+<section class="sec">
+  <div class="label">Background</div>
+  <div class="body">
+    <ul class="plain">
+      <li>
+        <span class="k">Education</span>
+        <strong>B.Eng. Computer Science and Technology</strong>, Northeastern University, China ·
+        2023–2027 (expected mid-2027) · CGPA 4.05/5.00 (90/100) · <strong>Rank 5 / 100</strong> in cohort
+      </li>
+      <li>
+        <span class="k">Awards</span>
+        China National Scholarship (national level, 2023–24) ·
+        NEU Comprehensive Scholarship (2024–26) ·
+        Third Prize, National Finals, Lanqiao Cup Programming Competition (2024)
+      </li>
+      <li>
+        <span class="k">Technical</span>
+        Python, C++, Java · PyTorch, Hugging Face Transformers
+      </li>
+      <li>
+        <span class="k">Languages</span>
+        Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Yuan Huang · Northeastern University, Shenyang, China · last updated August 2026
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var btns = document.querySelectorAll('.cond');
+  var fill = document.getElementById('fill');
+  var score = document.getElementById('score');
+  var delta = document.getElementById('delta');
+  var readout = document.getElementById('readout');
+
+  function set(btn){
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    var s = parseInt(btn.dataset.s, 10);
+    var d = btn.dataset.d;
+    fill.style.width = s + '%';
+    score.textContent = s;
+    if(d === '0'){
+      delta.textContent = '';
+      delta.className = 'delta';
+      fill.style.background = 'var(--pine)';
+    } else {
+      delta.textContent = '  ' + d;
+      delta.className = 'delta ' + (d.charAt(0) === '-' ? 'down' : 'up');
+      fill.style.background = d.charAt(0) === '-' ? 'var(--oxide)' : 'var(--pine)';
+    }
+    readout.innerHTML = btn.dataset.r;
+  }
+
+  btns.forEach(function(b){ b.addEventListener('click', function(){ set(b); }); });
+})();
+</script>
+</body>
+</html>

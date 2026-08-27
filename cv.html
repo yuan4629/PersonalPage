@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yuan Huang — Curriculum Vitae</title>
+<meta name="description" content="Curriculum vitae of Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Trustworthy evaluation of large multimodal language models and mechanistic interpretability of judge bias.">
+<link rel="canonical" href="https://yuan4629.github.io/PersonalPage/cv.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#F2F3EF;
+  --ink:#15181A;
+  --ink-2:#4C5457;
+  --ink-3:#7C8489;
+  --rule:#D2D7CD;
+  --pine:#24564A;
+  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --gutter:112px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:16.5px;
+  line-height:1.58;
+  font-feature-settings:"onum" 1;
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 28px 90px}
+
+a{color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.32)}
+a:hover{border-bottom-color:var(--pine)}
+a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+
+/* ---------- top bar (screen only) ---------- */
+.topbar{
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.02em;
+  display:flex;
+  gap:0 20px;
+  flex-wrap:wrap;
+  padding:26px 0 0;
+}
+.topbar a{border-bottom:1px solid var(--rule)}
+
+/* ---------- masthead ---------- */
+.mast{padding:34px 0 30px;border-bottom:1px solid var(--rule)}
+.name{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:clamp(1.7rem,4.6vw,2.3rem);
+  letter-spacing:-.04em;
+  line-height:1.05;
+  margin:0;
+}
+.name .cn{
+  font-size:.46em;
+  letter-spacing:.06em;
+  color:var(--ink-3);
+  font-weight:400;
+  margin-left:.6em;
+  vertical-align:.3em;
+}
+.contact{
+  font-family:var(--mono);
+  font-size:.76rem;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  margin:16px 0 0;
+  line-height:2;
+}
+.contact .sep{color:var(--ink-3);margin:0 8px}
+.affil{margin:10px 0 0;font-size:.97rem;color:var(--ink-2)}
+
+/* ---------- section grid ---------- */
+.sec{
+  display:grid;
+  grid-template-columns:var(--gutter) 1fr;
+  gap:0 30px;
+  padding:28px 0;
+  border-bottom:1px solid var(--rule);
+}
+.sec:last-of-type{border-bottom:0}
+.label{
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  padding-top:.35em;
+}
+.body>*:first-child{margin-top:0}
+.body>*:last-child{margin-bottom:0}
+p{margin:0 0 .9em;max-width:38em}
+
+/* ---------- entries ---------- */
+.entry{margin:0 0 20px}
+.entry:last-child{margin-bottom:0}
+.entry-t{font-size:1.02rem;font-weight:600;line-height:1.38;margin:0 0 5px;max-width:36em}
+.entry-m{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.02em;
+  color:var(--ink-2);
+  margin:0 0 8px;
+  line-height:1.8;
+}
+.entry-m .sep{color:var(--ink-3);margin:0 8px}
+.byline{font-size:.93rem;color:var(--ink-2);margin:0 0 7px;max-width:40em}
+.me{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pine)}
+.chip{
+  border:1px solid var(--rule);
+  padding:1px 7px;
+  color:var(--ink-3);
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:.63rem;
+  white-space:nowrap;
+}
+.chip.hot{border-color:var(--pine);color:var(--pine)}
+
+ul.bul{margin:0;padding-left:1.05em;list-style:none}
+ul.bul li{position:relative;font-size:.95rem;color:var(--ink-2);margin:0 0 5px;max-width:40em}
+ul.bul li:last-child{margin-bottom:0}
+ul.bul li::before{
+  content:"—";
+  position:absolute;
+  left:-1.05em;
+  color:var(--ink-3);
+}
+ul.bul strong{color:var(--ink);font-weight:600}
+
+.plain{list-style:none;margin:0;padding:0}
+.plain li{
+  padding:6px 0;
+  border-bottom:1px solid rgba(210,215,205,.6);
+  font-size:.95rem;
+  color:var(--ink-2);
+}
+.plain li:last-child{border-bottom:0}
+.plain strong{color:var(--ink);font-weight:600}
+.k{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  display:block;
+  margin-bottom:2px;
+}
+
+.note{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.03em;
+  color:var(--ink-3);
+  margin:0 0 14px;
+}
+
+footer{
+  padding:26px 0 0;
+  font-family:var(--mono);
+  font-size:.68rem;
+  letter-spacing:.05em;
+  color:var(--ink-3);
+  border-top:1px solid var(--rule);
+  margin-top:34px;
+}
+
+@media (max-width:760px){
+  body{font-size:15.5px}
+  .wrap{padding:0 20px 60px}
+  .sec{grid-template-columns:1fr;gap:12px;padding:24px 0}
+  .label{padding-top:0}
+}
+
+/* ---------- print / PDF ---------- */
+@page{size:A4;margin:14mm 15mm}
+@media print{
+  body{background:#fff;font-size:9.9pt;line-height:1.45}
+  .wrap{max-width:none;padding:0}
+  .topbar,.noprint{display:none !important}
+  .mast{padding:0 0 12px}
+  .name{font-size:19pt}
+  .contact{font-size:8pt;line-height:1.7;margin-top:8px}
+  .sec{padding:12px 0;gap:0 22px;grid-template-columns:96px 1fr}
+  .label{font-size:7.2pt}
+  .entry{margin-bottom:11px;break-inside:avoid}
+  .entry-t{font-size:10.4pt}
+  .entry-m{font-size:7.6pt;margin-bottom:5px}
+  .byline{font-size:9.4pt;margin-bottom:4px}
+  ul.bul li{font-size:9.4pt;margin-bottom:3px}
+  .plain li{font-size:9.4pt;padding:4px 0}
+  a{border-bottom:0}
+  footer{margin-top:16px;padding-top:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="topbar">
+  <a href="./index.html">← Homepage</a>
+  <a href="./cv.pdf">Download PDF</a>
+  <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a>
+</nav>
+
+<header class="mast">
+  <h1 class="name">Yuan Huang<span class="cn">黄远</span></h1>
+  <p class="contact">
+    <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a><span class="sep">·</span>+86 191 6050 6039
+    <br>
+    <a href="https://yuan4629.github.io/PersonalPage/">Homepage</a><span class="sep">·</span><a href="https://scholar.google.com/citations?user=eN-CIw4AAAAJ&amp;hl=en">Google&nbsp;Scholar</a><span class="sep">·</span><a href="https://github.com/yuan4629">GitHub</a>
+  </p>
+  <p class="affil">Northeastern University, Shenyang, China</p>
+</header>
+
+<!-- ================= RESEARCH INTERESTS ================= -->
+<section class="sec">
+  <div class="label">Interests</div>
+  <div class="body">
+    <p>
+      Trustworthy and human-centered evaluation of large (multimodal) language models.
+      Specifically: benchmark design grounded in large-scale real human behavior rather than
+      model self-play; reliability and bias of LLM-as-a-judge;
+      <strong>mechanistic accounts of why a model&rsquo;s judgment fails</strong>;
+      and social and strategic reasoning in LLM agents.
+    </p>
+  </div>
+</section>
+
+<!-- ================= EDUCATION ================= -->
+<section class="sec">
+  <div class="label">Education</div>
+  <div class="body">
+    <div class="entry">
+      <p class="entry-t">B.Eng. in Computer Science and Technology — Northeastern University, China</p>
+      <p class="entry-m">2023 – 2027 (expected mid-2027)<span class="sep">·</span>Shenyang, China</p>
+      <ul class="bul">
+        <li>CGPA <strong>4.05 / 5.00</strong> (90 / 100) · <strong>Rank 5 / 100</strong> in major cohort</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PUBLICATIONS ================= -->
+<section class="sec">
+  <div class="label">Publications</div>
+  <div class="body">
+    <p class="note">* denotes equal contribution.</p>
+
+    <div class="entry">
+      <p class="entry-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
+      <p class="byline">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al.</p>
+      <p class="entry-m">
+        <span class="chip hot">EMNLP 2026 Main</span><span class="sep">·</span><a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a><span class="sep">·</span>co-first author
+      </p>
+    </div>
+
+    <div class="entry">
+      <p class="entry-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
+      <p class="byline">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
+      <p class="entry-m">
+        <span class="chip">Preprint</span><span class="sep">·</span><a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
+      </p>
+    </div>
+
+    <div class="entry">
+      <p class="entry-t">Inside the Unfair Judge: A Mechanistic Interpretability Account of MLLM-as-Judge Bias</p>
+      <p class="byline"><span class="me">Yuan Huang</span> — sole first author</p>
+      <p class="entry-m">
+        <span class="chip">In preparation</span><span class="sep">·</span>targeting ICLR 2027 (abstract deadline 18 Sep 2026)
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH EXPERIENCE ================= -->
+<section class="sec">
+  <div class="label">Research</div>
+  <div class="body">
+
+    <div class="entry">
+      <p class="entry-t">Mechanistic Interpretability of MLLM-as-Judge Bias — independent first-author project</p>
+      <p class="entry-m">2026 – present<span class="sep">·</span>Sole first author: conception, experimental design, implementation, analysis, writing</p>
+      <ul class="bul">
+        <li>Showed that multimodal LLM judges are steered by <strong>non-visual</strong> factors while
+          the image stays <strong>pixel-identical</strong>: attaching a caption line lowers the score;
+          inserting a social cue (&ldquo;most reviewers preferred it&rdquo;) into the prompt raises it.</li>
+        <li>Gave a <strong>mechanistic account of how the bias forms inside the model</strong>, rather
+          than reporting the behavioral effect alone.</li>
+        <li>Evaluated <strong>three widely used debiasing strategies</strong>; <strong>none</strong>
+          restored the correct judgment.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <p class="entry-t">WereBench / WereAlign — human-aligned evaluation of LLM social reasoning</p>
+      <p class="entry-m">EMNLP 2026 Main<span class="sep">·</span>Co-first author; from project inception through submission</p>
+      <ul class="bul">
+        <li>Built a benchmark from <strong>100+ hours</strong> of professionally produced human
+          social-deduction gameplay (<strong>32.4M utterance tokens</strong>, 30 roles, 15 rule
+          variants, multimodal), using <strong>winning-side MVP strategy trajectories as ground
+          truth</strong> — in contrast to prior LLM self-play data.</li>
+        <li>Designed a 5-dimension verbal evaluation and 2 decision tasks; contributed to research
+          design, experiments, evaluation, and iterative refinement throughout.</li>
+        <li><strong>Half of the evaluated SOTA models score below 0.50</strong>; the best reaches only
+          <strong>0.720</strong>. Weakest dimensions are <strong>deception reasoning</strong> and
+          <strong>counterfactual trade-off</strong>, while persuasive generation stays strong —
+          i.e. <strong>fluency &ne; strategic correctness</strong>.</li>
+        <li>Two controlled interventions separated distinct failure paths, showing that models can
+          mistake another speaker&rsquo;s persuasive utterance for an instruction.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <p class="entry-t">GeoComp / GeoCoT / GeoEval — geolocation from real human gameplay data</p>
+      <p class="entry-m">Preprint<span class="sep">·</span>Co-author (3 of 9)</p>
+      <ul class="bul">
+        <li>Contributed to a dataset from a public geo-guessing platform: <strong>740K users,
+          2.7M locations, 25M human response records</strong>, with human accuracy used to calibrate
+          item difficulty.</li>
+        <li>Multi-step geographic reasoning improved standard geolocation metrics by up to
+          <strong>25%</strong>; scoring the <strong>reasoning process</strong> rather than only the
+          final answer added a further <strong>9%</strong>.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= HONORS ================= -->
+<section class="sec">
+  <div class="label">Honors</div>
+  <div class="body">
+    <ul class="plain">
+      <li><strong>China National Scholarship</strong> — national level, top ~1% nationally · 2023–2024</li>
+      <li>Northeastern University Comprehensive Scholarship · 2023–2026</li>
+      <li><strong>Third Prize, National Finals</strong>, Lanqiao Cup Programming Competition · 2024</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="sec">
+  <div class="label">Skills</div>
+  <div class="body">
+    <ul class="plain">
+      <li><span class="k">Languages</span>C++, Python, Java</li>
+      <li><span class="k">ML / research</span>PyTorch, Hugging Face Transformers</li>
+      <li><span class="k">Human languages</span>Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ALSO ================= -->
+<section class="sec">
+  <div class="label">Also</div>
+  <div class="body">
+    <ul class="plain">
+      <li>Backend engineering intern, 2024 — Java / Spring Boot.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Yuan Huang · Northeastern University, Shenyang, China · last updated August 2026
+</footer>
+
+</div>
+</body>
+</html>
