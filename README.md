@@ -11,6 +11,7 @@ Academic homepage of **Yuan Huang (黄远)**, Northeastern University, China.
 | `cv.html` | Web version of the CV, styled to match the homepage. Print stylesheet included. |
 | `cv.pdf` | Generated from `cv.html`. Linked from the homepage nav as *CV (PDF)*. |
 | `cv.md` | Source of truth for CV content, kept in sync by hand. |
+| `make-cv-pdf.ps1` | One command to re-render `cv.pdf` from `cv.html`. Not part of the site. |
 | `photo.jpg` | Portrait shown in the pinned identity block. **Not committed yet** — drop the file in and it appears; until then a dashed placeholder holds the space. `photo.png` works too. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is instead of running Jekyll. |
 
@@ -48,17 +49,37 @@ To hide the placeholder instead of showing it while the file is missing, add
 
 ## Regenerating cv.pdf
 
-Edit `cv.html`, then re-render with headless Chrome:
+`cv.pdf` is a committed file, not something Pages builds on push — so it goes stale the moment
+you edit `cv.html` and forget to re-render. After any CV edit, from the repo root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\make-cv-pdf.ps1
+```
+
+That is headless Chrome printing `cv.html`. The script exists because three details are easy to
+get wrong by hand, and each one fails **silently — no error, no file**:
+
+- `--print-to-pdf` needs an **absolute** path. A relative one is dropped.
+- `--user-data-dir` must point somewhere writable, or Chrome exits having done nothing.
+- Chrome returns **before** the file is flushed, so the write has to be polled for.
+
+By hand, if you would rather not use the script:
 
 ```bash
 chrome --headless=new --disable-gpu --no-pdf-header-footer \
-  --print-to-pdf=cv.pdf file:///ABSOLUTE/PATH/TO/cv.html
+  --user-data-dir=C:/Temp/cv-pdf-profile --virtual-time-budget=8000 \
+  --print-to-pdf=D:/ABSOLUTE/PATH/cv.pdf file:///D:/ABSOLUTE/PATH/cv.html
 ```
+
+Chrome's own Ctrl&#8209;P dialog works too, but it bakes in the browser's margin preset and its
+“Headers and footers” setting, so the output will not match. Prefer the script.
 
 The `@media print` block in `cv.html` controls the PDF layout (A4, 14/17 mm margins,
 currently 2 pages). Type size and leading there are set for reading comfort, not to fit a page
-count &mdash; two pages is fine, shrinking the text to reach one is not. Keep `cv.md` in sync when
-the content changes.
+count &mdash; two pages is fine, shrinking the text to reach one is not.
+
+The full CV loop, then: edit `cv.html` → mirror the change into `cv.md` by hand → run the
+script → commit `cv.html`, `cv.md` and `cv.pdf` together.
 
 ---
 

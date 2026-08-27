@@ -87,4 +87,4 @@ Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
 ## Skills
 
 - Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)
-- IELTS Academic — taken 4 September 2026 (score to follow) · CET-6 534
+<!-- - IELTS Academic — taken 4 September 2026 (score to follow) · CET-6 534 -->
