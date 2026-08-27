@@ -55,8 +55,10 @@ chrome --headless=new --disable-gpu --no-pdf-header-footer \
   --print-to-pdf=cv.pdf file:///ABSOLUTE/PATH/TO/cv.html
 ```
 
-The `@media print` block in `cv.html` controls the PDF layout (A4, 12/16 mm margins,
-currently 1 page). Keep `cv.md` in sync when the content changes.
+The `@media print` block in `cv.html` controls the PDF layout (A4, 14/17 mm margins,
+currently 2 pages). Type size and leading there are set for reading comfort, not to fit a page
+count &mdash; two pages is fine, shrinking the text to reach one is not. Keep `cv.md` in sync when
+the content changes.
 
 ---
 

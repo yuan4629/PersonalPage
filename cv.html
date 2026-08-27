@@ -77,30 +77,34 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   .row .when{margin-top:.1rem}
 }
 
-@page{size:A4;margin:12mm 16mm}
+/* Two pages are fine. Set for reading comfort, not for fitting a page. */
+@page{size:A4;margin:14mm 17mm}
 @media print{
-  body{max-width:none;margin:0;padding:0;font-size:9.9pt;line-height:1.38;color:#000}
+  body{max-width:none;margin:0;padding:0;font-size:10.6pt;line-height:1.6;color:#000}
   .et,.ea,.lead,.em,ul.b,p{max-width:none}
   a{color:#000;border-bottom:0}
-  .topbar,.noprint,footer{display:none !important}
-  header{padding-bottom:5pt}
-  h1{font-size:17pt;margin-bottom:2pt}
+  .topbar,.noprint{display:none !important}
+  header{padding-bottom:13pt}
+  h1{font-size:19.5pt;margin-bottom:3.5pt}
   h1 .cn{color:#555}
-  .contact{font-size:7.4pt;line-height:1.6}
-  h2{font-size:8.2pt;font-weight:600;letter-spacing:.1em;margin:11pt 0 4pt;
-    padding-bottom:2.2pt;color:#000;border-bottom:1.1pt solid #000;
+  .contact{font-size:8.1pt;line-height:1.8}
+  h2{font-size:8.8pt;font-weight:600;letter-spacing:.1em;margin:21pt 0 8pt;
+    padding-bottom:3pt;color:#000;border-bottom:1.1pt solid #000;
     break-after:avoid;page-break-after:avoid}
-  section:first-of-type h2{margin-top:6pt}
-  .entry{margin-bottom:5pt}
+  section:first-of-type h2{margin-top:12pt}
+  .entry{margin-bottom:13pt}
   .et,.em,.ea,.lead{break-after:avoid;page-break-after:avoid}
+  .row{break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
   ul.b li{break-inside:avoid;page-break-inside:avoid}
-  .et{font-size:9.6pt;margin-bottom:1pt}
-  .em{font-size:7.4pt;margin-bottom:2pt;line-height:1.5;color:#333}
-  .ea,.lead{font-size:8.9pt;color:#222;margin-bottom:1.5pt}
-  ul.b li{font-size:8.9pt;padding:.5pt 0 .5pt 7pt}
-  ul.b li::before{top:.75em}
-  .row .when{font-size:7.4pt;color:#444}
-  p{margin:.25rem 0 .4rem}
+  .et{font-size:10.6pt;margin-bottom:2pt}
+  .em{font-size:8.1pt;margin-bottom:5pt;line-height:1.6;color:#333}
+  .ea,.lead{font-size:9.9pt;color:#222;margin-bottom:4pt}
+  ul.b li{font-size:9.9pt;padding:2.2pt 0 2.2pt 9pt}
+  ul.b li::before{top:.78em;width:5px}
+  .row .when{font-size:8.1pt;color:#444}
+  p{margin:.3rem 0 .55rem}
+  footer{margin-top:20pt;padding-top:6pt;border-top:.6pt solid #bbb;
+    font-size:7.4pt;letter-spacing:.05em;color:#777;break-inside:avoid}
 }
 </style>
 </head>
