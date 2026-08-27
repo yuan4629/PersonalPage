@@ -6,7 +6,7 @@ Academic homepage of **Yuan Huang (黄远)**, Northeastern University, China.
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The homepage. Short by design: about, news, published work, education, awards. |
+| `index.html` | The homepage. Short by design: about, news, published work, education, awards. A fixed bar across the top jumps to each section and marks the one you are reading. |
 | `current-focus.html` | Work in progress, in detail — currently the EditJudgeBias audit. Anything not yet published lives here, not on the homepage. |
 | `cv.html` | Web version of the CV, styled to match the homepage. Print stylesheet included. |
 | `cv.pdf` | Generated from `cv.html`. Linked from the homepage nav as *CV (PDF)*. |
