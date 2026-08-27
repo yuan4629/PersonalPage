@@ -8,10 +8,10 @@ Northeastern University, Shenyang, China
 
 ## Research Interests
 
-Measurement validity in model evaluation — whether the benchmarks and automatic judges used to rank
-models are measuring what they claim to. Concretely: counterfactual auditing of (multimodal) LLM
-judges, benchmark design grounded in large-scale real human behavior rather than model self-play,
-and social and strategic reasoning in LLM agents.
+Natural language processing, and measurement validity in model evaluation — whether the benchmarks
+and automatic judges used to rank models are measuring what they claim to. Concretely:
+counterfactual auditing of (multimodal) LLM judges, benchmark design grounded in large-scale real
+human behavior rather than model self-play, and social and strategic reasoning in LLM agents.
 
 One result recurs across my projects: **surface competence ≠ underlying cognitive competence**. A
 correct answer is not a correct reasoning process; persuasive language is not strategic correctness;
@@ -27,7 +27,8 @@ the underlying process rather than the benchmark number.
 **Northeastern University, China** — B.Eng. in Computer Science and Technology · 2023 – 2027 (expected)
 
 - CGPA **4.05 / 5.00** (90 / 100) · **Rank 5 / 100** in major cohort
-- Research advising: Shiqi Zhao, Brain-Computer Interface and Hardware Acceleration Lab, since 2024
+- Research advising: Shiqi Zhao (Assistant Professor, Northeastern University), Brain-Computer
+  Interface and Hardware Acceleration Lab, since 2024
 
 ---
 

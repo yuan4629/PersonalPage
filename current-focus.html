@@ -27,16 +27,32 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink);
-  background:var(--bg);max-width:800px;margin:0 auto;padding:2.2rem 1.5rem 2rem}
+  background:var(--bg);margin:0}
+
+/* ---- two-column shell: pinned identity + scrolling content ---- */
+.shell{max-width:1080px;margin:0 auto;padding:0 1.6rem;
+  display:grid;grid-template-columns:262px 1fr;gap:0 3rem;align-items:start}
+.ident{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  padding:2.8rem 1.7rem 2rem 0;border-right:1px solid var(--rule)}
+.content{padding:2.8rem 0 2rem;min-width:0;max-width:41em}
+.idname{font-size:1.62rem;font-weight:600;letter-spacing:-.022em;margin:0;line-height:1.16}
+.idname a{color:var(--ink);border-bottom:0}
+.idname .cn{display:block;font-size:.56em;font-weight:400;color:var(--ink-3);
+  letter-spacing:.1em;margin-top:.18em}
+.role{margin:.75rem 0 0;color:var(--ink-2);font-size:.9rem;line-height:1.5}
+.social{display:grid;justify-items:start;gap:.12rem;margin-top:1.15rem;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.01em;line-height:1.95}
+.social a{border-bottom-color:var(--rule)}
+.loc{margin:1.15rem 0 0;padding-top:.85rem;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3)}
 a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.28)}
 a:hover{border-bottom-color:var(--accent)}
 a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 p{margin:.55rem 0 .85rem;max-width:44em}
 strong{font-weight:600}
 
-.back{font-family:var(--mono);font-size:.76rem;letter-spacing:.04em;
-  border-bottom-color:var(--rule)}
-header{border-bottom:1px solid var(--rule);padding-bottom:1.15rem;margin-top:1.4rem}
+header{border-bottom:1px solid var(--rule);padding-bottom:1.15rem}
 h1{font-size:1.85rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .35rem;line-height:1.22;
   max-width:22em}
 .meta{display:flex;flex-wrap:wrap;gap:.4rem;margin:.75rem 0 0;
@@ -44,8 +60,11 @@ h1{font-size:1.85rem;font-weight:600;letter-spacing:-.02em;margin:0 0 .35rem;lin
 .meta span{background:var(--accent-soft);color:var(--accent);padding:.16rem .55rem;border-radius:3px}
 .standfirst{margin:.9rem 0 0;color:var(--ink-2)}
 
-h2{font-size:1.2rem;font-weight:600;letter-spacing:-.01em;margin:2.1rem 0 .85rem;
-  padding-bottom:.42rem;border-bottom:1px solid var(--rule)}
+h2{font-size:1.16rem;font-weight:600;letter-spacing:-.01em;margin:2.1rem 0 .85rem;
+  padding-bottom:.42rem;border-bottom:1px solid var(--rule);
+  display:flex;align-items:baseline;gap:.5rem}
+h2 .e{font-size:.92em;line-height:1;font-family:
+  "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
 section{margin-bottom:1.5rem}
 
 /* the order-swap rig */
@@ -119,8 +138,22 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;color:var(--ink-3);
   display:flex;flex-wrap:wrap;gap:0 1rem;justify-content:space-between}
 
+@media (max-width:880px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 1.15rem}
+  .ident{height:auto;overflow:visible;background:var(--bg);z-index:10;
+    border-right:0;border-bottom:1px solid var(--rule);
+    padding:.8rem 0 .65rem;box-shadow:0 6px 14px -12px rgba(0,0,0,.35)}
+  .idname{font-size:1.12rem;display:flex;align-items:baseline;gap:.5rem}
+  .idname .cn{display:inline;font-size:.62em;margin:0 0 0 .5em}
+  .role{margin:.1rem 0 0;font-size:.78rem}
+  .role br{display:none}
+  .social{display:flex;flex-wrap:wrap;gap:0 1rem;margin-top:.35rem;
+    font-size:.69rem;line-height:1.85}
+  .loc{display:none}
+  .content{padding:1.4rem 0 1.5rem;max-width:none}
+}
 @media (max-width:640px){
-  body{font-size:16px;padding:1.7rem 1.15rem 1.5rem}
+  body{font-size:16px}
   h1{font-size:1.55rem}
   .ratio-row{grid-template-columns:92px 1fr 44px}
   .stats{grid-template-columns:repeat(2,1fr)}
@@ -132,7 +165,22 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </head>
 <body>
 
-<a class="back" href="./">&larr; Yuan Huang</a>
+<div class="shell">
+
+<aside class="ident">
+  <p class="idname"><a href="./">Yuan Huang<span class="cn">黄远</span></a></p>
+  <p class="role">Undergraduate researcher in computer science, <br>Northeastern University, China.</p>
+  <nav class="social">
+    <a href="./">&larr; Homepage</a>
+    <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a>
+    <a href="https://scholar.google.com/citations?user=eN-CIw4AAAAJ&amp;hl=en">Google Scholar</a>
+    <a href="https://github.com/yuan4629">GitHub</a>
+    <a href="./cv.html">CV</a>
+  </nav>
+  <p class="loc">Shenyang, China</p>
+</aside>
+
+<main class="content">
 
 <header>
   <h1>EditJudgeBias: a preservation-gated counterfactual audit of MLLM judges</h1>
@@ -148,7 +196,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </header>
 
 <section>
-  <h2>The problem</h2>
+  <h2><span class="e">🎯</span> The problem</h2>
   <p>
     Leaderboards for instruction-based image editing increasingly rank models using multimodal LLM
     judges. Those judges are not themselves audited. The question here is how much of a judge's
@@ -166,7 +214,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>The cleanest condition changes nothing at all</h2>
+  <h2><span class="e">🔁</span> The cleanest condition changes nothing at all</h2>
   <p>
     Same two candidate edits, same images, same prompt text. Only the order in which they are
     presented to the judge.
@@ -221,7 +269,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Scale</h2>
+  <h2><span class="e">📊</span> Scale</h2>
   <div class="stats">
     <div class="stat"><b>97,973</b><span>judgments, 1:1 with raw responses</span></div>
     <div class="stat"><b>13</b><span>cue conditions, 4 injection levels</span></div>
@@ -245,7 +293,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Findings</h2>
+  <h2><span class="e">🔍</span> Findings</h2>
   <ol class="find">
     <li>Protocol-level reordering alone flips pairwise decisions at 38.2&times; the judge's self-noise.</li>
     <li>Five pixel- and content-level cues depress scores consistently across 5/5 judges; a bandwagon
@@ -265,7 +313,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Whether to believe it</h2>
+  <h2><span class="e">🧪</span> Whether to believe it</h2>
   <p>
     I spent comparable effort on whether to believe my own results. The repository carries 1,307 unit
     tests and 109 frozen artifacts, each with a sha256, its producer, and a field recording what that
@@ -302,7 +350,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Where this goes</h2>
+  <h2><span class="e">🧭</span> Where this goes</h2>
   <p>My three projects are the same question asked three times.</p>
 
   <div class="thread">
@@ -341,7 +389,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Also under way</h2>
+  <h2><span class="e">🌱</span> Also under way</h2>
   <p>
     <strong>PromptChecker.</strong> Instructions arrive one at a time, and an instruction is usually
     not enough to specify the problem. A model that answers immediately is answering a question that
@@ -355,6 +403,9 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   <span><a href="./">&larr; Back to homepage</a></span>
   <span>Updated August 2026</span>
 </footer>
+
+</main>
+</div>
 
 <script>
 (function(){
