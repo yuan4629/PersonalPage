@@ -6,14 +6,18 @@ Academic homepage of **Yuan Huang (黄远)**, Northeastern University, China.
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The homepage. Self-contained — all CSS and JS inline, no build step. |
+| `index.html` | The homepage. Short by design: about, news, published work, education, awards. |
+| `current-focus.html` | Work in progress, in detail — currently the EditJudgeBias audit. Anything not yet published lives here, not on the homepage. |
 | `cv.html` | Web version of the CV, styled to match the homepage. Print stylesheet included. |
 | `cv.pdf` | Generated from `cv.html`. Linked from the homepage nav as *CV (PDF)*. |
 | `cv.md` | Source of truth for CV content, kept in sync by hand. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is instead of running Jekyll. |
 
-Only external dependency is Google Fonts (IBM Plex Mono, Source Serif 4); both have local
-fallbacks, so the page degrades cleanly if the CDN is blocked.
+Every page is self-contained — CSS and JS inline, no build step. The only external dependency is
+Google Fonts (IBM Plex Mono, Source Serif 4); both have local fallbacks, so the pages degrade
+cleanly if the CDN is blocked. Layout follows the conventions of
+[Minimal-Academic-Website](https://github.com/yuhui-zh15/Minimal-Academic-Website) — narrow
+measure, ruled section headings, no chrome. The CSS is original.
 
 ## Enabling GitHub Pages (one-time)
 
@@ -40,8 +44,8 @@ chrome --headless=new --disable-gpu --no-pdf-header-footer \
   --print-to-pdf=cv.pdf file:///ABSOLUTE/PATH/TO/cv.html
 ```
 
-The `@media print` block in `cv.html` controls the PDF layout (A4, 13/15 mm margins,
-currently 3 pages). Keep `cv.md` in sync when the content changes.
+The `@media print` block in `cv.html` controls the PDF layout (A4, 12/16 mm margins,
+currently 2 pages). Keep `cv.md` in sync when the content changes.
 
 ---
 

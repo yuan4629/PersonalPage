@@ -3,487 +3,198 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yuan Huang — Evaluation Validity for Multimodal Judges</title>
-<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Counterfactual auditing of MLLM judges, benchmark design from real human behavior, and measurement validity in LLM evaluation.">
-<meta property="og:title" content="Yuan Huang — Evaluation Validity for Multimodal Judges">
-<meta property="og:description" content="Undergraduate researcher, Northeastern University China. Auditing the systems that score other models.">
+<title>Yuan Huang</title>
+<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. Measurement validity in model evaluation: auditing automatic judges and building benchmarks from real human behavior.">
+<meta property="og:title" content="Yuan Huang">
+<meta property="og:description" content="Undergraduate researcher, Northeastern University, China. Measurement validity in model evaluation.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://yuan4629.github.io/PersonalPage/">
 <link rel="canonical" href="https://yuan4629.github.io/PersonalPage/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --paper:#F2F3EF; --paper-2:#E8EAE3;
-  --ink:#15181A; --ink-2:#4C5457; --ink-3:#7C8489;
-  --rule:#D2D7CD;
-  --pine:#24564A; --oxide:#93382B;
+  --bg:#fff;
+  --ink:#22272a; --ink-2:#5b6468; --ink-3:#8a9296;
+  --rule:#e2e6e0;
+  --accent:#24564a; --accent-soft:rgba(36,86,74,.075);
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --gutter:132px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);
-  font-size:17px;line-height:1.62;font-feature-settings:"onum" 1}
-.wrap{max-width:940px;margin:0 auto;padding:0 28px 100px}
-a{color:var(--pine);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.32)}
-a:hover{border-bottom-color:var(--pine)}
-a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+body{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink);
+  background:var(--bg);max-width:800px;margin:0 auto;padding:2.6rem 1.5rem 2rem}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(36,86,74,.28)}
+a:hover{border-bottom-color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+p{margin:.55rem 0 .85rem}
+strong{font-weight:600}
 
-.mast{padding:76px 0 40px;border-bottom:1px solid var(--rule)}
-.name{font-family:var(--mono);font-weight:600;font-size:clamp(2.1rem,6vw,3.05rem);
-  letter-spacing:-.045em;line-height:1.02;margin:0}
-.name .cn{font-size:.42em;letter-spacing:.06em;color:var(--ink-3);font-weight:400;
-  margin-left:.7em;vertical-align:.32em}
-.tagline{margin:20px 0 0;max-width:38em;font-size:1.09rem;color:var(--ink-2)}
-.tagline strong{color:var(--ink);font-weight:600}
-.links{margin-top:26px;font-family:var(--mono);font-size:.78rem;letter-spacing:.02em;
-  display:flex;flex-wrap:wrap;gap:0 22px;line-height:2.1}
-.links a{border-bottom:1px solid var(--rule)}
+header{border-bottom:1px solid var(--rule);padding-bottom:1.2rem}
+h1{font-size:2.2rem;font-weight:600;letter-spacing:-.022em;margin:0 0 .25rem;line-height:1.15}
+h1 .cn{font-size:.44em;font-weight:400;color:var(--ink-3);margin-left:.55em;
+  letter-spacing:.06em;vertical-align:.2em}
+.role{margin:0;color:var(--ink-2);max-width:44em}
+.social{display:flex;flex-wrap:wrap;gap:0 1.35rem;margin-top:1.05rem;
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.01em;line-height:2}
+.social a{border-bottom-color:var(--rule)}
 
-.sec{display:grid;grid-template-columns:var(--gutter) 1fr;gap:0 34px;
-  padding:46px 0;border-bottom:1px solid var(--rule)}
-.sec:last-of-type{border-bottom:0}
-.label{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--ink-3);padding-top:.42em}
-.body>*:first-child{margin-top:0}
-.body>*:last-child{margin-bottom:0}
-p{margin:0 0 1.05em}
-.body p{max-width:38em}
+h2{font-size:1.2rem;font-weight:600;letter-spacing:-.01em;margin:2.1rem 0 .85rem;
+  padding-bottom:.42rem;border-bottom:1px solid var(--rule)}
+section{margin-bottom:1.5rem}
+.lede{max-width:44em}
 
-/* ---- signature: the order-swap rig ---- */
-.rig{background:var(--paper-2);border:1px solid var(--rule);padding:24px 24px 20px;margin:6px 0 0}
-.rig-head{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
-.slots{display:flex;gap:14px;margin-bottom:16px}
-.slot{flex:1 1 0;min-width:0;border:1px solid var(--rule);background:var(--paper);padding:12px}
-.slot-k{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-3);margin-bottom:8px}
-.slot svg{display:block;width:100%;height:74px}
-.slot-v{font-family:var(--mono);font-size:.7rem;margin-top:9px;letter-spacing:.03em;
-  color:var(--ink-3);transition:color .3s ease}
-.slot.win .slot-v{color:var(--pine);font-weight:600}
-.slot.win{border-color:var(--pine)}
+.focus{margin:1.1rem 0 0;padding:.7rem 0 .1rem .95rem;border-left:2px solid var(--accent);
+  max-width:44em;color:var(--ink-2)}
+.focus b{color:var(--ink);font-weight:600}
 
-.swap{font-family:var(--mono);font-size:.75rem;padding:9px 14px;border:1px solid var(--ink);
-  background:var(--ink);color:var(--paper);cursor:pointer;letter-spacing:.02em}
-.swap:hover{opacity:.86}
-.swap:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
-.rig-read{font-family:var(--mono);font-size:.72rem;color:var(--ink-2);
-  margin-top:14px;line-height:1.65;min-height:2.9em}
+ul.news{list-style:none;margin:0;padding:0}
+ul.news li{display:grid;grid-template-columns:5.4rem 1fr;gap:0 1rem;
+  padding:.42rem 0;font-size:.97rem;align-items:baseline}
+ul.news .d{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-3)}
 
-.ratio{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule)}
-.ratio-row{display:grid;grid-template-columns:118px 1fr 58px;gap:0 12px;align-items:center;
-  margin-bottom:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.03em}
-.ratio-row .lb{color:var(--ink-3);text-transform:uppercase}
-.ratio-bar{height:8px;background:#DDE0D8;position:relative;overflow:hidden}
-.ratio-bar i{position:absolute;inset:0 auto 0 0;display:block;background:var(--ink-3)}
-.ratio-row.hot .ratio-bar i{background:var(--oxide)}
-.ratio-row .vv{text-align:right;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.pub{padding:.15rem 0 .95rem;margin-bottom:.95rem;border-bottom:1px solid var(--rule)}
+.pub:last-child{border-bottom:0;margin-bottom:0;padding-bottom:.2rem}
+.pub-t{font-size:1.03rem;font-weight:600;line-height:1.4;margin:0 0 .3rem;max-width:38em}
+.pub-a{font-size:.92rem;color:var(--ink-2);margin:0 0 .3rem;max-width:42em}
+.me{color:var(--ink);font-weight:600}
+.pub-v{font-size:.92rem;font-style:italic;color:var(--ink-2);margin:0 0 .45rem}
+.pub-links{display:flex;flex-wrap:wrap;gap:.4rem;font-family:var(--mono);font-size:.71rem;
+  letter-spacing:.03em}
+.pub-links a{background:var(--accent-soft);border:0;padding:.16rem .5rem;border-radius:3px}
+.pub-links a:hover{background:var(--accent);color:#fff}
+.tag{background:var(--accent);color:#fff;padding:.16rem .5rem;border-radius:3px;
+  font-family:var(--mono);font-size:.71rem;letter-spacing:.03em}
 
-/* ---- stat strip ---- */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:4px 0 0}
-.stat{background:var(--paper);padding:14px 14px 12px}
-.stat b{display:block;font-family:var(--mono);font-size:1.12rem;font-weight:600;
-  letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.stat span{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-3);margin-top:5px;line-height:1.5}
+ul.rows{list-style:none;margin:0;padding:0}
+ul.rows li{display:grid;grid-template-columns:5.4rem 1fr;gap:0 1rem;
+  padding:.3rem 0;font-size:.97rem;align-items:baseline}
+ul.rows .y{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-3)}
+.sub{font-size:.9rem;color:var(--ink-2)}
 
-/* ---- findings ---- */
-.find{list-style:none;margin:0;padding:0;counter-reset:f}
-.find li{counter-increment:f;padding:13px 0 13px 40px;position:relative;
-  border-bottom:1px solid rgba(210,215,205,.65);font-size:.99rem;max-width:40em}
-.find li:last-child{border-bottom:0}
-.find li::before{content:counter(f,decimal-leading-zero);position:absolute;left:0;top:15px;
-  font-family:var(--mono);font-size:.68rem;color:var(--ink-3);letter-spacing:.06em}
+footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;color:var(--ink-3);
+  display:flex;flex-wrap:wrap;gap:0 1rem;justify-content:space-between}
 
-/* ---- self-audit ledger ---- */
-.ledger{border-left:2px solid var(--oxide);padding:2px 0 2px 18px;margin:0 0 18px;max-width:39em}
-.ledger dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--oxide);
-  text-transform:uppercase;margin-top:14px}
-.ledger dt:first-child{margin-top:0}
-.ledger dd{margin:4px 0 0;font-size:.96rem;color:var(--ink-2)}
-
-/* ---- through-line ---- */
-.thread{margin:4px 0 0;border-top:1px solid var(--rule);max-width:40em}
-.thread .row{display:grid;grid-template-columns:158px 1fr;gap:0 18px;padding:11px 0;
-  border-bottom:1px solid rgba(210,215,205,.65);font-size:.97rem;align-items:baseline}
-.thread .dm{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-3)}
-.thread .ne{color:var(--ink-2)}
-.thread .ne b{color:var(--ink);font-weight:600}
-.pull{font-size:1.06rem;color:var(--ink);max-width:35em;margin:24px 0 0;
-  padding-left:18px;border-left:2px solid var(--pine)}
-
-/* ---- publications ---- */
-.pub{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid var(--rule)}
-.pub:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
-.pub-t{font-size:1.04rem;font-weight:600;line-height:1.4;margin:0 0 7px;max-width:34em}
-.pub-a{font-size:.93rem;color:var(--ink-2);margin:0 0 9px;max-width:40em}
-.me{color:var(--ink);font-weight:600;border-bottom:2px solid var(--pine)}
-.pub-m{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-2);
-  display:flex;flex-wrap:wrap;gap:0 14px;line-height:1.9}
-.chip{border:1px solid var(--rule);padding:1px 8px;color:var(--ink-3);text-transform:uppercase;
-  letter-spacing:.09em;font-size:.64rem}
-.chip.hot{border-color:var(--pine);color:var(--pine)}
-.pub-note{font-size:.92rem;color:var(--ink-2);margin:10px 0 0;max-width:38em;
-  padding-left:14px;border-left:2px solid var(--rule)}
-
-.plain{list-style:none;margin:0;padding:0}
-.plain li{padding:7px 0;border-bottom:1px solid rgba(210,215,205,.6);font-size:.97rem}
-.plain li:last-child{border-bottom:0}
-.k{font-family:var(--mono);font-size:.71rem;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--ink-3);display:block;margin-bottom:2px}
-
-footer{padding:38px 0 0;font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;
-  color:var(--ink-3);border-top:1px solid var(--rule);margin-top:44px}
-
-@media (max-width:760px){
-  body{font-size:16px}
-  .wrap{padding:0 20px 70px}
-  .mast{padding:52px 0 32px}
-  .sec{grid-template-columns:1fr;gap:14px;padding:36px 0}
-  .label{padding-top:0}
-  .ratio-row{grid-template-columns:96px 1fr 46px}
-  .thread .row{grid-template-columns:1fr;gap:3px}
+@media (max-width:640px){
+  body{font-size:16px;padding:2rem 1.15rem 1.5rem}
+  h1{font-size:1.85rem}
+  ul.news li,ul.rows li{grid-template-columns:1fr;gap:.1rem}
 }
-@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header class="mast">
-  <h1 class="name">Yuan Huang<span class="cn">黄远</span></h1>
-  <p class="tagline">
-    Undergraduate researcher in computer science at <strong>Northeastern University, China</strong>.
-    I work on <strong>measurement validity in model evaluation</strong>: whether the benchmarks and
-    automatic judges we rank models with are themselves measuring what they claim to. Also on
-    benchmarks built from <strong>large-scale real human behavior</strong> rather than model self-play.
-  </p>
-  <nav class="links">
+<header>
+  <h1>Yuan Huang<span class="cn">黄远</span></h1>
+  <p class="role">Undergraduate researcher in computer science, Northeastern University, China.</p>
+  <nav class="social">
     <a href="mailto:huangyuan4629@gmail.com">huangyuan4629@gmail.com</a>
     <a href="https://scholar.google.com/citations?user=eN-CIw4AAAAJ&amp;hl=en">Google Scholar</a>
     <a href="https://github.com/yuan4629">GitHub</a>
-    <a href="./cv.pdf">CV (PDF)</a>
+    <a href="./cv.html">CV</a>
   </nav>
 </header>
 
-<section class="sec">
-  <div class="label">Research</div>
-  <div class="body">
+<section>
+  <h2>About</h2>
+  <div class="lede">
     <p>
-      Leaderboards for instruction-based image editing increasingly rank models using
-      multimodal LLM judges. Those judges are not themselves audited. My current project asks how
-      much of a judge's score comes from edit quality and how much from surface cues that have
-      nothing to do with it.
+      I work on <strong>measurement validity in model evaluation</strong>: whether the benchmarks and
+      automatic judges we use to rank models are measuring what they claim to. That runs in two
+      directions — auditing the judges themselves, and building benchmarks out of large-scale real
+      human behavior rather than model self-play.
     </p>
     <p>
-      The methodological commitment that runs through the work is narrow and load-bearing:
-      <strong>only admit a perturbation you can show did not change edit quality</strong>. Preservation
-      verification is not a post-hoc sanity check here; it is an admission gate every injector and
-      every metric has to pass first, with coverage reported layer by layer. Each cue also gets a
-      zero-dose sham control, which establishes a floor per judge and per metric — without that
-      floor, a null result is unreadable.
+      The same result keeps coming back across projects. A correct answer is not a correct reasoning
+      process; persuasive language is not strategic correctness; a verdict that looks right is not one
+      that used the right evidence. <strong>Surface competence is not underlying competence</strong>,
+      and most of our instruments measure the first. What I want to work on for the next several years
+      is what sits between generating language and thinking — measuring that gap, explaining it, and
+      closing it.
+    </p>
+    <p class="focus">
+      <b>Current focus →</b>
+      <a href="./current-focus.html">EditJudgeBias: a counterfactual audit of multimodal LLM judges</a><br>
+      Leaderboards for image editing now rank models with MLLM judges that nobody audits. Changing
+      only the order two candidates are shown in flips decisions at 38.2&times; the judge's own noise.
+      Method, scale, findings, and what I got wrong are on that page.
     </p>
   </div>
 </section>
 
-<section class="sec">
-  <div class="label">The rig</div>
-  <div class="body">
-    <p style="margin-bottom:1.25em">
-      The cleanest condition in the study changes nothing at all. Same two candidate edits,
-      same images, same prompt text — only the order in which they are presented to the judge.
-    </p>
+<section>
+  <h2>News</h2>
+  <ul class="news">
+    <li><span class="d">2026 · 10</span>
+      <span><em>Beyond Survival</em> accepted to <strong>EMNLP 2026 Main Conference</strong>.</span></li>
+    <li><span class="d">2025 · 10</span>
+      <span>WereBench preprint posted:
+        <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>.</span></li>
+    <li><span class="d">2025 · 02</span>
+      <span>GeoComp preprint and dataset released:
+        <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>.</span></li>
+    <li><span class="d">2024</span>
+      <span>Awarded the <strong>China National Scholarship</strong>.</span></li>
+  </ul>
+</section>
 
-    <div class="rig">
-      <div class="rig-head">Pairwise judgment · protocol-level swap</div>
-      <div class="slots">
-        <div class="slot win" id="s1">
-          <div class="slot-k" id="k1">Position 1</div>
-          <svg viewBox="0 0 100 56" role="img" aria-label="Candidate edit A">
-            <rect width="100" height="56" fill="#31605A"/>
-            <circle cx="70" cy="17" r="8" fill="#D8DCCF" opacity=".85"/>
-            <path d="M0 44 L24 28 L44 40 L66 24 L100 42 L100 56 L0 56 Z" fill="#0F2426" opacity=".75"/>
-          </svg>
-          <div class="slot-v" id="v1">preferred</div>
-        </div>
-        <div class="slot" id="s2">
-          <div class="slot-k" id="k2">Position 2</div>
-          <svg viewBox="0 0 100 56" role="img" aria-label="Candidate edit B">
-            <rect width="100" height="56" fill="#3A5560"/>
-            <rect x="12" y="12" width="26" height="18" fill="#D8DCCF" opacity=".8"/>
-            <path d="M0 46 L30 32 L58 44 L100 30 L100 56 L0 56 Z" fill="#16282F" opacity=".78"/>
-          </svg>
-          <div class="slot-v" id="v2">not preferred</div>
-        </div>
-      </div>
-      <button class="swap" type="button" id="swap">Swap the presentation order</button>
-      <div class="rig-read" id="read">
-        Nothing has been altered yet. Both candidates are shown in their original positions.
-      </div>
+<section>
+  <h2>Publications</h2>
 
-      <div class="ratio">
-        <div class="ratio-row">
-          <span class="lb">Judge self-noise</span>
-          <span class="ratio-bar"><i style="width:2.6%"></i></span>
-          <span class="vv">1×</span>
-        </div>
-        <div class="ratio-row hot">
-          <span class="lb">Order swap only</span>
-          <span class="ratio-bar"><i style="width:100%"></i></span>
-          <span class="vv">38.2×</span>
-        </div>
-      </div>
+  <article class="pub">
+    <h3 class="pub-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</h3>
+    <p class="pub-a">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al. &nbsp;<em>(* equal contribution)</em></p>
+    <p class="pub-v">EMNLP 2026, Main Conference &middot; co-first author</p>
+    <div class="pub-links">
+      <a href="https://arxiv.org/abs/2510.11389">arXiv</a>
+      <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a>
     </div>
+  </article>
 
-    <p style="margin-top:1.35em">
-      On the replication arm, a pure protocol-level reordering flips decisions at
-      <strong>38.2 times the judge's own self-noise rate</strong>. No pixel and no token of the
-      prompt has moved.
-    </p>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="label">Scale</div>
-  <div class="body">
-    <div class="stats">
-      <div class="stat"><b>97,973</b><span>judgments, 1:1 with raw responses</span></div>
-      <div class="stat"><b>13</b><span>cue conditions, 4 injection levels</span></div>
-      <div class="stat"><b>5 + 1</b><span>judges, plus a separate replication arm</span></div>
-      <div class="stat"><b>3</b><span>disjoint content pools</span></div>
-      <div class="stat"><b>0.8930</b><span>inter-annotator κ, 3 rounds — equal to κ<sub>max</sub></span></div>
-      <div class="stat"><b>0.300%</b><span>parse failure rate</span></div>
+  <article class="pub">
+    <h3 class="pub-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</h3>
+    <p class="pub-a">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
+    <p class="pub-v">Preprint</p>
+    <div class="pub-links">
+      <a href="https://arxiv.org/abs/2502.13759">arXiv</a>
+      <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
+      <a href="https://github.com/yuan4629/Geocomp">Code</a>
     </div>
-    <p style="margin-top:1.3em">
-      Cues span four injection sites — protocol level (order only), pixel level, content level, and
-      prompt level — plus a null-perturbation control. Base images come from five public sources,
-      passed through a text / sha1 / ORB near-duplicate gate to yield three mutually independent
-      pools. The replication arm carries its own Benjamini–Hochberg family and is never pooled with
-      the main judge list.
-    </p>
-  </div>
+  </article>
+
+  <p class="sub" style="margin-top:.9rem">
+    Work in progress is not listed here — see <a href="./current-focus.html">current focus</a>.
+  </p>
 </section>
 
-<section class="sec">
-  <div class="label">Findings</div>
-  <div class="body">
-    <ol class="find">
-      <li>Protocol-level reordering alone flips pairwise decisions at 38.2× the judge's self-noise.</li>
-      <li>Five pixel- and content-level cues depress scores consistently across 5/5 judges;
-          a bandwagon cue is the only one that consistently inflates across 5/5.</li>
-      <li>Only one cue holds up across both judges and content pools. Most of the rest are
-          order-preserving depressions: they move the absolute score without moving the ranking.</li>
-      <li>Rubric-style scoring buys absolute-score stability but not rank stability — a counterexample
-          to the common assumption that a rubric makes a judge more reliable.</li>
-      <li>Of three mitigation layers, only the protocol-level one works, and follow-up analysis shows
-          its mechanism is <em>abstention</em>, not debiasing. Prompt-level mitigation is near
-          coin-flip; ensemble median is worse than doing nothing.</li>
-      <li>A 5/5 null result on a skin-tone attribute — readable only because same-batch positive
-          controls fired. Testing specificity alone would certify a judge that never alarms as the
-          best-calibrated one: revocation sensitivity was 0.032 for one judge and 0.946 for another
-          on identical data.</li>
-    </ol>
-  </div>
+<section>
+  <h2>Education</h2>
+  <ul class="rows">
+    <li><span class="y">2023 – 27</span>
+      <span><strong>B.Eng., Computer Science and Technology</strong>, Northeastern University, China<br>
+        <span class="sub">CGPA 4.05 / 5.00 (90 / 100) &middot; rank 5 / 100 &middot;
+        advised by Shiqi Zhao, Brain&#8209;Computer Interface and Hardware Acceleration Lab, since 2024</span></span></li>
+  </ul>
 </section>
 
-<section class="sec">
-  <div class="label">Self-audit</div>
-  <div class="body">
-    <p>
-      I spent comparable effort on whether to believe my own results. The repository carries 1,307
-      unit tests and 109 frozen artifacts, each with a sha256, its producer, and a field recording
-      what that table must <em>not</em> be read as. There is a single reconstruction path with
-      byte-level comparison after a full rebuild, and the anonymized delivery package re-verifies
-      itself: 1,289 tests pass inside the package, and 112 analysis tables rebuilt from raw
-      judgments come out byte-identical to the repository.
-    </p>
-    <p>Four times the audit overturned a conclusion I had already written down:</p>
-    <dl class="ledger">
-      <dt>Clustering not applied</dt>
-      <dd>Claim B's significant cells corrected from 13/40 down to 2/40.</dd>
-      <dt>Mechanism misread</dt>
-      <dd>"Protocol-level mitigation debiases the judge" reclassified as abstention.</dd>
-      <dt>Control was missing</dt>
-      <dd>"This cue is the only one breaking preservation" refuted by my own added control.</dd>
-      <dt>Cost accounting</dt>
-      <dd>Dashboard-delta method understated spend by ~19%; replaced with a per-call ledger.</dd>
-    </dl>
-    <p>
-      Selecting a human-anchor dataset surfaced two contamination modes: one candidate shared 70% of
-      its base images with a dataset already in use, and another's advertised human scores turned out
-      to be machine scores from an automatic metric — adopting it would have made the argument
-      circular. These and other cases are collected into a running list of 27 silent analysis-layer
-      failure modes, each of which had produced a publication-ready wrong number in this project.
-    </p>
-  </div>
+<section>
+  <h2>Awards</h2>
+  <ul class="rows">
+    <li><span class="y">2023 – 24</span><span>China National Scholarship <span class="sub">(national level)</span></span></li>
+    <li><span class="y">2024 – 26</span><span>Northeastern University Comprehensive Scholarship</span></li>
+    <li><span class="y">2024</span><span>Third Prize, National Finals, Lanqiao Cup Programming Competition</span></li>
+  </ul>
 </section>
 
-<section class="sec">
-  <div class="label">Papers</div>
-  <div class="body">
+<footer>
+  <span>Yuan Huang &middot; Shenyang, China</span>
+  <span>Updated August 2026</span>
+</footer>
 
-    <article class="pub">
-      <h2 class="pub-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</h2>
-      <p class="pub-a">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al. &nbsp;<em>(* equal contribution)</em></p>
-      <div class="pub-m">
-        <span class="chip hot">EMNLP 2026 Main</span>
-        <span>Co-first author</span>
-        <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>
-        <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a>
-      </div>
-      <p class="pub-note">
-        A benchmark built from 100+ hours of professionally produced human social-deduction gameplay
-        — 32.4M utterance tokens, 30 roles, 15 rule variants — using winning-side MVP strategy
-        trajectories as ground truth instead of LLM self-play. Half the models evaluated score below
-        0.50; the strongest reaches 0.720. Weakest dimensions are deception reasoning and
-        counterfactual trade-off while persuasive generation stays strong: fluency is not strategic
-        correctness.
-      </p>
-    </article>
-
-    <article class="pub">
-      <h2 class="pub-t">EditJudgeBias: A Preservation-Gated Counterfactual Audit of MLLM Judges for Instruction-Based Image Editing</h2>
-      <p class="pub-a"><span class="me">Yuan Huang</span></p>
-      <div class="pub-m">
-        <span class="chip">In preparation</span>
-        <span>Sole first author · conception through writing</span>
-      </div>
-      <p class="pub-note">
-        Described above. Complementary to representation-level accounts of judge bias
-        (Xu et al., arXiv:2607.11871): that line asks what happens inside a text judge when it
-        scores unfairly; this one asks whether a multimodal judge's score can be trusted as a
-        measurement at all, and supplies the admission gate and null-readability machinery needed
-        to answer that.
-      </p>
-    </article>
-
-    <article class="pub">
-      <h2 class="pub-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</h2>
-      <p class="pub-a">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
-      <div class="pub-m">
-        <span class="chip">Preprint</span>
-        <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
-        <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
-        <a href="https://github.com/yuan4629/Geocomp">Code</a>
-      </div>
-      <p class="pub-note">
-        740K users, 2.7M locations, 25M human response records, with human accuracy calibrating item
-        difficulty. Multi-step geographic reasoning improves standard metrics by up to 25%; scoring
-        the reasoning process rather than the final answer adds a further 9%.
-      </p>
-    </article>
-
-  </div>
-</section>
-
-<section class="sec">
-  <div class="label">Direction</div>
-  <div class="body">
-    <p>
-      The three projects above are the same question asked three times.
-    </p>
-
-    <div class="thread">
-      <div class="row"><span class="dm">Geolocation</span>
-        <span class="ne">A correct answer is not a <b>correct reasoning process</b>.</span></div>
-      <div class="row"><span class="dm">Social deduction</span>
-        <span class="ne">Persuasive language is not <b>strategic correctness</b>.</span></div>
-      <div class="row"><span class="dm">Multimodal judging</span>
-        <span class="ne">A verdict that looks right is not a verdict that <b>used the right evidence</b>.</span></div>
-    </div>
-
-    <p style="margin-top:1.3em">
-      Each time, surface competence and underlying competence come apart — and our instruments
-      mostly measure the first. That is the question I expect to spend years on:
-      <strong>why can a language model be this fluent and this capable at the surface, and still
-      lack robust reasoning, strategy, and depth? What is missing between generating language and
-      thinking?</strong>
-    </p>
-
-    <p>I want to work on it at three levels.</p>
-
-    <ol class="find">
-      <li><strong>Measure the gap.</strong> Evaluation grounded in real human behavior and real
-        cognitive process, designed to separate surface success from the capacity it stands in for.
-        This is what the work so far has been.</li>
-      <li><strong>Explain it.</strong> Mechanistic accounts of what inside the model produces the
-        failure, rather than one more report that it fails.</li>
-      <li><strong>Close it.</strong> Interventions that change the underlying process instead of the
-        benchmark number. A gain that leaves the process untouched is the failure mode here, not
-        the goal.</li>
-    </ol>
-
-    <p class="pull">
-      Further out: what computational process turns language generation into reasoning, conceptual
-      restructuring, and discovery? The aim is not a model that writes more like someone who thinks.
-      It is a science of machine thought, and a smaller gap between fluency and thought.
-    </p>
-
-    <ul class="plain" style="margin-top:26px">
-      <li><span class="k">Also under way · PromptChecker</span>
-        Instructions arrive one at a time, and an instruction is usually not enough to specify the
-        problem. A model that answers immediately is answering a question that was never fully
-        asked. The direction: reconstruct what the user actually needs before responding, and treat
-        <em>&ldquo;I do not yet have enough to act&rdquo;</em> as a first-class output rather than a
-        failure to comply.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="label">Background</div>
-  <div class="body">
-    <ul class="plain">
-      <li><span class="k">Education</span>
-        <strong>B.Eng. Computer Science and Technology</strong>, Northeastern University, China ·
-        2023–2027 (expected mid-2027) · CGPA 4.05/5.00 (90/100) · <strong>Rank 5 / 100</strong></li>
-      <li><span class="k">Research advising</span>
-        Advised by Shiqi Zhao, Brain-Computer Interface and Hardware Acceleration Lab,
-        Northeastern University, since 2024
-        <!-- TODO: confirm the exact romanization and academic title from the lab page --></li>
-      <li><span class="k">Awards</span>
-        China National Scholarship (national level, 2023–24) ·
-        NEU Comprehensive Scholarship (2024–26) ·
-        Third Prize, National Finals, Lanqiao Cup Programming Competition (2024)</li>
-      <li><span class="k">Technical</span>
-        Python, C++, Java · PyTorch, Hugging Face Transformers</li>
-      <li><span class="k">Languages</span>
-        Chinese (native) · English — CET-6 534; IELTS Academic taken 4 September 2026</li>
-    </ul>
-  </div>
-</section>
-
-<footer>Yuan Huang · Northeastern University, Shenyang, China · updated August 2026</footer>
-</div>
-
-<script>
-(function(){
-  var swapped=false;
-  var k1=document.getElementById('k1'),k2=document.getElementById('k2');
-  var v1=document.getElementById('v1'),v2=document.getElementById('v2');
-  var s1=document.getElementById('s1'),s2=document.getElementById('s2');
-  var read=document.getElementById('read');
-  document.getElementById('swap').addEventListener('click',function(){
-    swapped=!swapped;
-    k1.textContent=swapped?'Position 2':'Position 1';
-    k2.textContent=swapped?'Position 1':'Position 2';
-    v1.textContent=swapped?'not preferred':'preferred';
-    v2.textContent=swapped?'preferred':'not preferred';
-    s1.classList.toggle('win',!swapped);
-    s2.classList.toggle('win',swapped);
-    read.textContent=swapped
-      ? 'Only the presentation order changed. The judge now prefers the other candidate — the same two images, the same prompt, the opposite verdict.'
-      : 'Back to the original order. The verdict returns with it.';
-  });
-})();
-</script>
 </body>
 </html>
