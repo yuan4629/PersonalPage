@@ -41,6 +41,14 @@ strong{font-weight:600}
   padding:2.8rem 1.7rem 2rem 0;border-right:1px solid var(--rule)}
 .content{padding:2.8rem 0 2rem;min-width:0;max-width:41em}
 
+/* ---- portrait: drop photo.jpg (or photo.png) beside this file ---- */
+.photo{width:112px;aspect-ratio:3/4;margin:0 0 1.05rem;overflow:hidden;position:relative;
+  border:1px solid var(--rule);border-radius:3px;background:#f5f6f4}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;border:0}
+.photo.empty{border-style:dashed}
+.photo.empty::after{content:"photo.jpg";position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;font-family:var(--mono);font-size:.58rem;
+  letter-spacing:.04em;color:var(--ink-3)}
 .idname{font-size:1.62rem;font-weight:600;letter-spacing:-.022em;margin:0;line-height:1.16}
 .idname a{color:var(--ink);border-bottom:0}
 .idname .cn{display:block;font-size:.56em;font-weight:400;color:var(--ink-3);
@@ -107,7 +115,9 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   .shell{grid-template-columns:1fr;gap:0;padding:0 1.15rem}
   .ident{height:auto;overflow:visible;background:var(--bg);z-index:10;
     border-right:0;border-bottom:1px solid var(--rule);
-    padding:.8rem 0 .65rem;box-shadow:0 6px 14px -12px rgba(0,0,0,.35)}
+    padding:.8rem 56px .65rem 0;box-shadow:0 6px 14px -12px rgba(0,0,0,.35)}
+  .photo{position:absolute;top:50%;right:0;transform:translateY(-50%);width:42px;margin:0}
+  .photo.empty::after{content:""}
   .idname{font-size:1.12rem;display:flex;align-items:baseline;gap:.5rem}
   .idname .cn{display:inline;font-size:.62em;margin:0 0 0 .5em}
   .role{margin:.1rem 0 0;font-size:.78rem}
@@ -126,6 +136,9 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 <div class="shell">
 
 <aside class="ident">
+  <div class="photo">
+    <img src="./photo.jpg" alt="" onerror="if(this.src.endsWith('.jpg')){this.src='./photo.png'}else{this.closest('.photo').classList.add('empty');this.remove()}">
+  </div>
   <h1 class="idname"><a href="./">Yuan Huang<span class="cn">黄远</span></a></h1>
   <p class="role">Undergraduate researcher in computer science, <br>Northeastern University, China.</p>
   <nav class="social">

@@ -78,23 +78,23 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 
 @page{size:A4;margin:12mm 16mm}
 @media print{
-  body{max-width:none;margin:0;padding:0;font-size:9.9pt;line-height:1.42;color:#000}
+  body{max-width:none;margin:0;padding:0;font-size:9.9pt;line-height:1.38;color:#000}
   .et,.ea,.lead,.em,ul.b,p{max-width:none}
   a{color:#000;border-bottom:0}
   .topbar,.noprint,footer{display:none !important}
-  header{padding-bottom:7pt}
+  header{padding-bottom:5pt}
   h1{font-size:17pt;margin-bottom:2pt}
   h1 .cn{color:#555}
   .contact{font-size:7.4pt;line-height:1.6}
-  h2{font-size:7.4pt;margin:11pt 0 5pt;padding-bottom:2.5pt;color:#444;
+  h2{font-size:7.4pt;margin:8.5pt 0 4pt;padding-bottom:2.5pt;color:#444;
     break-after:avoid;page-break-after:avoid}
-  .entry{margin-bottom:7pt}
+  .entry{margin-bottom:5pt}
   .et,.em,.ea,.lead{break-after:avoid;page-break-after:avoid}
   ul.b li{break-inside:avoid;page-break-inside:avoid}
   .et{font-size:9.6pt;margin-bottom:1pt}
   .em{font-size:7.4pt;margin-bottom:2pt;line-height:1.5;color:#333}
   .ea,.lead{font-size:8.9pt;color:#222;margin-bottom:1.5pt}
-  ul.b li{font-size:8.9pt;padding:.7pt 0 .7pt 7pt}
+  ul.b li{font-size:8.9pt;padding:.5pt 0 .5pt 7pt}
   ul.b li::before{top:.75em}
   .row .when{font-size:7.4pt;color:#444}
   p{margin:.25rem 0 .4rem}
@@ -123,18 +123,10 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 <section>
   <h2>Research Interests</h2>
   <p class="lead">
-    Natural language processing, and measurement validity in model evaluation — whether the
-    benchmarks and automatic judges used to rank models are measuring what they claim to. Concretely: counterfactual auditing of (multimodal)
-    LLM judges, benchmark design grounded in large-scale real human behavior rather than model
-    self-play, and social and strategic reasoning in LLM agents.
-  </p>
-  <p class="lead">
-    One result recurs across my projects: <strong>surface competence &ne; underlying cognitive
-    competence</strong>. A correct answer is not a correct reasoning process; persuasive language is
-    not strategic correctness; a verdict that looks right is not one that used the right evidence. I
-    want to work on what is missing between generating language and thinking — measuring the gap with
-    evaluation grounded in real human behavior, explaining it mechanistically, and closing it with
-    interventions that change the underlying process rather than the benchmark number.
+    Natural language processing, with a focus on <b>measurement validity</b> — whether the benchmarks
+    and automatic judges used to rank models measure what they claim to. One result recurs across my
+    projects: <b>surface competence &ne; underlying competence</b>. I want to measure that gap,
+    explain it mechanistically, and close it.
   </p>
 </section>
 
@@ -147,8 +139,7 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
     </div>
     <ul class="b">
       <li>CGPA <b>4.05 / 5.00</b> (90 / 100) · <b>Rank 5 / 100</b> in major cohort</li>
-      <li>Research advising: Shiqi Zhao (Assistant Professor, Northeastern University),
-        Brain-Computer Interface and Hardware Acceleration Lab, since 2024</li>
+      <li>Advised by Shiqi Zhao (Assistant Professor, Northeastern University) since 2024</li>
     </ul>
   </div>
 </section>
@@ -179,37 +170,21 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 
   <div class="entry">
     <div class="row">
-      <p class="et">EditJudgeBias — counterfactual auditing of multimodal image-editing judges</p>
+      <p class="et">EditJudgeBias — counterfactual audit of multimodal image-editing judges</p>
       <span class="when">2026 – present</span>
     </div>
-    <p class="em">Sole first author · conception, design, implementation, analysis, writing ·
-      <span style="white-space:nowrap">in preparation, targeting ICLR 2027</span></p>
-    <p class="lead">
-      Leaderboards for instruction-based image editing increasingly rank models with MLLM judges that
-      are not themselves audited. This project makes "how much of the score is edit quality" measurable.
-    </p>
+    <p class="em">Sole first author · <span style="white-space:nowrap">in preparation, targeting ICLR 2027</span></p>
     <ul class="b">
-      <li><b>Method.</b> One invariant runs through the pipeline: admit only perturbations that can be
-        shown not to have changed edit quality. Preservation verification is an <b>admission gate</b>
-        every injector and metric must pass — not a post-hoc check — and each cue carries a
-        <b>zero-dose sham control</b> establishing a per-judge, per-metric floor, so that null results
-        are readable.</li>
-      <li><b>Scale.</b> 13 cue conditions across four injection sites — protocol, pixel, content,
-        prompt — plus a null control; 5 published judges plus an independent replication arm with its
-        own BH family; 3 disjoint content pools behind a near-duplicate gate. <b>97,973 judgments</b>,
-        0.300% parse failure, human-annotation legs on 11 cues (κ = 0.8930, read beside
-        κ<sub>max</sub> = 0.8930).</li>
-      <li><b>Findings.</b> Protocol-level reordering alone flips decisions at <b>38.2× the judge's
-        self-noise</b>. Rubric scoring buys absolute-score stability but not rank stability. Of three
-        mitigation layers only the protocol-level one works, and its mechanism is <b>abstention, not
-        debiasing</b>. A 5/5 null on a skin-tone attribute is readable only because same-batch positive
-        controls fired — testing specificity alone would certify a never-alarming judge as
-        best-calibrated (revocation sensitivity 0.032 vs 0.946 on identical data).</li>
-      <li><b>Verification.</b> 1,307 unit tests; 109 frozen artifacts each with sha256, producer, and
-        an explicit "must not be read as" field; a self-certifying delivery package (1,289 tests pass
-        in-package, 112 rebuilt tables byte-identical). The audit overturned four of my own
-        conclusions, including a correction from 13/40 significant cells to 2/40 after adding
-        clustering.</li>
+      <li><b>Design.</b> Admit only perturbations that can be shown not to have changed edit quality:
+        preservation verification is an admission gate, not a post-hoc check, and every cue carries a
+        zero-dose sham control, so null results are readable.</li>
+      <li><b>Scale.</b> 13 cue conditions across four injection sites, 5 published judges plus an
+        independent replication arm — <b>97,973 judgments</b>, 0.300% parse failure.</li>
+      <li><b>Findings.</b> Reordering the two candidates alone flips decisions at <b>38.2× the judge’s
+        self-noise</b>; of three mitigation layers only the protocol-level one works, and it works by
+        <b>abstention, not debiasing</b>.</li>
+      <li><b>Rigor.</b> 1,307 unit tests and 109 sha256-stamped frozen artifacts; the audit overturned
+        four of my own conclusions.</li>
     </ul>
   </div>
 
@@ -218,18 +193,14 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
       <p class="et">WereBench / WereAlign — human-aligned evaluation of LLM social reasoning</p>
       <span class="when">EMNLP 2026 Main</span>
     </div>
-    <p class="em">Co-first author · from project inception through submission</p>
+    <p class="em">Co-first author · inception through submission</p>
     <ul class="b">
-      <li>Built a benchmark from <b>100+ hours</b> of professionally produced human social-deduction
-        gameplay (<b>32.4M utterance tokens</b>, 30 roles, 15 rule variants, multimodal), using
-        <b>winning-side MVP strategy trajectories as ground truth</b> rather than LLM self-play.</li>
-      <li>Designed a 5-dimension verbal evaluation and 2 decision tasks; contributed to research
-        design, experiments, evaluation, and iterative refinement.</li>
-      <li><b>Half of the evaluated models score below 0.50</b>; the best reaches <b>0.720</b>. Weakest
-        dimensions are <b>deception reasoning</b> and <b>counterfactual trade-off</b> while persuasive
-        generation stays strong — <b>fluency ≠ strategic correctness</b>. Two controlled interventions
-        separated distinct failure paths, showing models can mistake another speaker's persuasive
-        utterance for an instruction.</li>
+      <li>Benchmark built from <b>100+ hours</b> of professional human social-deduction gameplay
+        (<b>32.4M utterance tokens</b>, 30 roles, 15 rule variants), scored against <b>winning-side MVP
+        trajectories</b> rather than LLM self-play; 5 verbal dimensions and 2 decision tasks.</li>
+      <li><b>Half of the evaluated models score below 0.50</b> (best 0.720). Deception reasoning and
+        counterfactual trade-off are weakest while persuasive generation stays strong —
+        <b>fluency &ne; strategic correctness</b>.</li>
     </ul>
   </div>
 
@@ -240,10 +211,10 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
     </div>
     <p class="em">Co-author (3 of 9)</p>
     <ul class="b">
-      <li>Contributed to a dataset from a public geo-guessing platform: <b>740K users, 2.7M locations,
-        25M human response records</b>, with human accuracy calibrating item difficulty.</li>
-      <li>Multi-step geographic reasoning improved standard metrics by up to <b>25%</b>; scoring the
-        <b>reasoning process</b> rather than only the final answer added a further <b>9%</b>.</li>
+      <li>Dataset from a public geo-guessing platform — <b>740K users, 2.7M locations, 25M human
+        response records</b> — with human accuracy calibrating item difficulty. Multi-step geographic
+        reasoning improved standard metrics by up to <b>25%</b>; scoring the reasoning process rather
+        than only the final answer added a further <b>9%</b>.</li>
     </ul>
   </div>
 </section>
@@ -260,10 +231,8 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 <section>
   <h2>Skills</h2>
   <ul class="b">
-    <li><b>Languages:</b> Python, C++, Java &nbsp;·&nbsp; <b>ML / research:</b> PyTorch, Hugging Face
-      Transformers</li>
-    <li><b>English:</b> IELTS Academic — taken 4 September 2026 (score to follow); CET-6 534</li>
-    <li>Backend engineering intern, 2024 — Java / Spring Boot</li>
+    <li>Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)</li>
+    <li>IELTS Academic — taken 4 September 2026 (score to follow) · CET-6 534</li>
   </ul>
 </section>
 

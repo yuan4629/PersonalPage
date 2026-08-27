@@ -11,6 +11,7 @@ Academic homepage of **Yuan Huang (黄远)**, Northeastern University, China.
 | `cv.html` | Web version of the CV, styled to match the homepage. Print stylesheet included. |
 | `cv.pdf` | Generated from `cv.html`. Linked from the homepage nav as *CV (PDF)*. |
 | `cv.md` | Source of truth for CV content, kept in sync by hand. |
+| `photo.jpg` | Portrait shown in the pinned identity block. **Not committed yet** — drop the file in and it appears; until then a dashed placeholder holds the space. `photo.png` works too. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is instead of running Jekyll. |
 
 Every page is self-contained — CSS and JS inline, no build step. The only external dependency is
@@ -35,6 +36,16 @@ Pushing to `main` republishes automatically.
 Note: this machine cannot reach `github.com` over HTTPS, so the remote is configured over SSH
 via the `github.com-yuan4629` host alias in `~/.ssh/config`.
 
+## Adding the portrait
+
+Save a 3:4 portrait as `photo.jpg` in this folder and push it. No markup change is needed: the
+identity block already reserves a 112&nbsp;px-wide slot for it, and the image is loaded with a
+fallback chain — `photo.jpg` → `photo.png` → dashed placeholder. Around 600&times;800&nbsp;px is
+plenty; anything larger is wasted bytes on every page load.
+
+To hide the placeholder instead of showing it while the file is missing, add
+`.photo.empty{display:none}` to the stylesheet in `index.html` and `current-focus.html`.
+
 ## Regenerating cv.pdf
 
 Edit `cv.html`, then re-render with headless Chrome:
@@ -45,7 +56,7 @@ chrome --headless=new --disable-gpu --no-pdf-header-footer \
 ```
 
 The `@media print` block in `cv.html` controls the PDF layout (A4, 12/16 mm margins,
-currently 2 pages). Keep `cv.md` in sync when the content changes.
+currently 1 page). Keep `cv.md` in sync when the content changes.
 
 ---
 
