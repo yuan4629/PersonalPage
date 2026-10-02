@@ -94,6 +94,9 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   section:first-of-type h2{margin-top:12pt}
   .entry{margin-bottom:13pt}
   .et,.em,.ea,.lead{break-after:avoid;page-break-after:avoid}
+  /* a publication entry ends on its meta line; without this the avoid chains
+     through every entry and the whole section jumps to the next page */
+  .entry > .em:last-child{break-after:auto;page-break-after:auto}
   .row{break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
   ul.b li{break-inside:avoid;page-break-inside:avoid}
   .et{font-size:10.6pt;margin-bottom:2pt}
@@ -133,7 +136,9 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
     Natural language processing, with a focus on <b>measurement validity</b> — whether the benchmarks
     and automatic judges used to rank models measure what they claim to. One result recurs across my
     projects: <b>surface competence &ne; underlying competence</b>. I want to measure that gap,
-    explain it mechanistically, and close it.
+    explain it mechanistically, and close it. My current project is on the
+    <b>interpretability of bias in multimodal models</b>: identifying the internal semantics that
+    carry a bias, and mechanisms to correct it.
   </p>
 </section>
 
@@ -141,11 +146,20 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   <h2>Education</h2>
   <div class="entry">
     <div class="row">
+      <p class="et">Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) — Visiting Student</p>
+      <span class="when">2026 – 2027</span>
+    </div>
+    <ul class="b">
+      <li>Advised by Xiuying Chen (Assistant Professor, MBZUAI)</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="row">
       <p class="et">Northeastern University, China — B.Eng., Computer Science and Technology</p>
       <span class="when">2023 – 2027 (expected)</span>
     </div>
     <ul class="b">
-      <li>CGPA <b>4.05 / 5.00</b> (90 / 100) · <b>Rank 5 / 100</b> in major cohort</li>
+      <li>CGPA <b>4.0481 / 5.00</b> (90 / 100) · <b>Rank 5 / 110</b> (top 4.55%) in major cohort</li>
       <li>Advised by Shiqi Zhao (Assistant Professor, Northeastern University) since 2024</li>
     </ul>
   </div>
@@ -155,18 +169,33 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   <h2>Publications</h2>
 
   <div class="entry">
-    <p class="et">[1] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
+    <p class="et">[1] Do MLLM Judges Judge the Edit? Auditing Bias in Image Editing Evaluation with Verified Quality Preservation</p>
+    <p class="ea"><span class="me">Yuan Huang</span>*, Zirui Song*, Xiuying Chen
+      <em>(* equal contribution)</em></p>
+    <p class="em"><b>EditJudgeBias</b> · <em>Under review at ICLR 2027</em> · <span style="white-space:nowrap">co-first author</span>
+      · <a href="https://arxiv.org/abs/2610.01670">arXiv:2610.01670</a>, Oct 2026</p>
+  </div>
+
+  <div class="entry">
+    <p class="et">[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize</p>
+    <p class="ea"><span class="me">Yuan Huang</span>, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao</p>
+    <p class="em"><b>LS-B</b> · <em>Under review at ICLR 2027</em> · <span style="white-space:nowrap">first author</span>
+      · <a href="https://arxiv.org/abs/2610.01590">arXiv:2610.01590</a>, Oct 2026</p>
+  </div>
+
+  <div class="entry">
+    <p class="et">[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
     <p class="ea">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al.
       <em>(* equal contribution)</em></p>
-    <p class="em"><em>EMNLP 2026, Main Conference</em> · <span style="white-space:nowrap">co-first author</span>
-      · <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>
+    <p class="em"><b>WereBench</b> · <em>EMNLP 2026, Main Conference</em> · <span style="white-space:nowrap">co-first author</span>
+      · <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>, Oct 2025
       · <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a></p>
   </div>
 
   <div class="entry">
-    <p class="et">[2] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
+    <p class="et">[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
     <p class="ea">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
-    <p class="em"><em>Preprint</em> · <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>
+    <p class="em"><b>Geolocation</b> · <em>Preprint</em> · <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>, Feb 2025
       · <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
       · <a href="https://github.com/yuan4629/Geocomp">Code</a></p>
   </div>
@@ -177,30 +206,42 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 
   <div class="entry">
     <div class="row">
-      <p class="et">EditJudgeBias — counterfactual audit of multimodal image-editing judges</p>
-      <span class="when">2026 – present</span>
+      <p class="et">EditJudgeBias — auditing bias in MLLM judges for image editing</p>
+      <span class="when">Oct 2026</span>
     </div>
-    <p class="em">Sole first author · <span style="white-space:nowrap">in preparation, targeting ICLR 2027</span></p>
+    <p class="em">Co-first author · <span style="white-space:nowrap">under review at ICLR 2027</span></p>
     <ul class="b">
-      <li><b>Design.</b> Admit only perturbations that can be shown not to have changed edit quality:
-        preservation verification is an admission gate, not a post-hoc check, and every cue carries a
-        zero-dose sham control, so null results are readable.</li>
-      <li><b>Scale.</b> 13 cue conditions across four injection sites, 5 published judges plus an
-        independent replication arm — <b>97,973 judgments</b>, 0.300% parse failure.</li>
-      <li><b>Findings.</b> Reordering the two candidates alone flips decisions at <b>38.2× the judge’s
-        self-noise</b>; of three mitigation layers only the protocol-level one works, and it works by
-        <b>abstention, not debiasing</b>.</li>
-      <li><b>Rigor.</b> 1,307 unit tests and 109 sha256-stamped frozen artifacts; the audit overturned
-        four of my own conclusions.</li>
+      <li><b>Design.</b> 1,196 real editing samples and 13 cues across four evaluation sites. A shift
+        counts as bias only if the cue is verified to preserve edit quality, and is read against the
+        judge’s own zero-dose and re-query noise floors, not against zero.</li>
+      <li><b>Findings.</b> Quality-preserving cues move all five MLLM judges beyond their own noise;
+        swapping candidate order alone reverses up to <b>60.9%</b> of pairwise decisions, against
+        1.0–10.5% on re-query.</li>
+      <li><b>Rigor.</b> 1,396 tests, 117 sha256-stamped artifacts; the audit overturned four of my own
+        conclusions.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <p class="et">LS-B — brain readouts for layer specialization in continual learning</p>
+      <span class="when">Oct 2026</span>
+    </div>
+    <p class="em">First author · <span style="white-space:nowrap">under review at ICLR 2027</span></p>
+    <ul class="b">
+      <li>Placement search over ViT depth traces an <b>inverted U</b> (up to 3.5 pp); LS-B reads early
+        tasks through an fMRI encoding model of twelve human visual areas and picks blocks overlapping
+        the peak — on Split ImageNet-R, within <b>1.5 pp</b> of full-BiLoRA at <b>60%</b> of the
+        storage, with no labels or backpropagation.</li>
     </ul>
   </div>
 
   <div class="entry">
     <div class="row">
       <p class="et">WereBench / WereAlign — human-aligned evaluation of LLM social reasoning</p>
-      <span class="when">EMNLP 2026 Main</span>
+      <span class="when">Oct 2025</span>
     </div>
-    <p class="em">Co-first author · inception through submission</p>
+    <p class="em">Co-first author · inception through submission · EMNLP 2026 Main</p>
     <ul class="b">
       <li>Benchmark built from <b>100+ hours</b> of professional human social-deduction gameplay
         (<b>32.4M utterance tokens</b>, 30 roles, 15 rule variants), scored against <b>winning-side MVP
@@ -213,15 +254,15 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 
   <div class="entry">
     <div class="row">
-      <p class="et">GeoComp / GeoCoT / GeoEval — geolocation from real human gameplay data</p>
-      <span class="when">Preprint</span>
+      <p class="et">Geolocation — GeoComp / GeoCoT / GeoEval, from real human gameplay data</p>
+      <span class="when">Feb 2025</span>
     </div>
-    <p class="em">Co-author (3 of 9)</p>
+    <p class="em">Co-author (3 of 9) · preprint</p>
     <ul class="b">
       <li>Dataset from a public geo-guessing platform — <b>740K users, 2.7M locations, 25M human
         response records</b> — with human accuracy calibrating item difficulty. Multi-step geographic
-        reasoning improved standard metrics by up to <b>25%</b>; scoring the reasoning process rather
-        than only the final answer added a further <b>9%</b>.</li>
+        reasoning (GeoCoT) improved classic geolocation metrics by up to <b>25%</b>, and reasoning
+        quality as scored by GeoEval by <b>9%</b>.</li>
     </ul>
   </div>
 </section>
@@ -243,7 +284,7 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   </ul>
 </section>
 
-<footer>Yuan Huang · updated August 2026 · yuan4629.github.io/PersonalPage</footer>
+<footer>Yuan Huang · updated October 2026 · yuan4629.github.io/PersonalPage</footer>
 
 </body>
 </html>

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yuan Huang - Homepage</title>
-<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China. NLP and measurement validity in model evaluation: auditing automatic judges and building benchmarks from real human behavior.">
+<meta name="description" content="Yuan Huang (黄远), undergraduate researcher at Northeastern University, China, and visiting student at MBZUAI. NLP and measurement validity in model evaluation; interpretability of bias in multimodal models.">
 <meta property="og:title" content="Yuan Huang">
-<meta property="og:description" content="Undergraduate researcher, Northeastern University, China. NLP and measurement validity in model evaluation.">
+<meta property="og:description" content="Undergraduate researcher, Northeastern University, China; visiting student, MBZUAI. NLP, measurement validity in model evaluation, and interpretability.">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://yuan4629.github.io/PersonalPage/">
 <link rel="canonical" href="https://yuan4629.github.io/PersonalPage/">
@@ -106,6 +106,10 @@ ul.news .d{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:v
 
 .pub{padding:.15rem 0 .95rem;margin-bottom:.95rem;border-bottom:1px solid var(--rule)}
 .pub:last-of-type{border-bottom:0;margin-bottom:0;padding-bottom:.2rem}
+.pub-k{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin:0 0 .2rem;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.05em}
+.pub-k .n{color:var(--accent);font-weight:500}
+.pub-k .d{color:var(--ink-3)}
 .pub-t{font-size:1.03rem;font-weight:600;line-height:1.4;margin:0 0 .3rem}
 .pub-a{font-size:.92rem;color:var(--ink-2);margin:0 0 .3rem}
 .me{color:var(--ink);font-weight:600}
@@ -187,15 +191,17 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   <p>
     I am a final-year undergraduate in Computer Science and Technology at
     <strong>Northeastern University, China</strong>, advised by Prof. <a href="https://bcic-lab.github.io/LAB_web/">Shiqi Zhao</a>
-    since 2024. I rank 5&nbsp;/&nbsp;100 in my cohort with a CGPA 4.05 / 5.00 (90 / 100) and hold the China National
+    since 2024, and currently a visiting student at <strong>MBZUAI</strong>, advised by
+    Prof. <a href="https://iriscxy.github.io/">Xiuying Chen</a>. I rank 5&nbsp;/&nbsp;110 (top 4.55%) in my cohort with a CGPA 4.0481 / 5.00 (90 / 100) and hold the China National
     Scholarship. <strong>I am looking for opportunities to pursue a PhD.</strong>
   </p>
   <p>
     My work on evaluating LLM social reasoning against real human gameplay appears at
     <strong>EMNLP 2026 Main Conference</strong>, where I am a co-first author; before that I worked on
-    geolocation from large-scale human gameplay data. Currently working on measurement validity,
-    MLLM&#8209;as&#8209;a&#8209;judge auditing, multimodal evaluation, and benchmarks
-    built from human verification.
+    geolocation from large-scale human gameplay data. Two newer papers are under review at
+    <strong>ICLR 2027</strong>: EditJudgeBias (co-first author), an audit of the multimodal LLM
+    judges that evaluate image editing, and LS-B (first author), which reads a continual learner
+    through an fMRI model of human visual cortex to decide where it should specialize.
   </p>
   <p>
     Underneath all of it is one question: <strong>whether the benchmarks and automatic judges we rank
@@ -209,10 +215,8 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   </p>
   <p class="focus">
     <b>🔬 Current focus →</b>
-    <a href="./current-focus.html">EditJudgeBias: a counterfactual audit of multimodal LLM judges</a><br>
-    Image-editing comparison now rank models with MLLM judges that nobody audits. Changing
-    only the order two candidates are shown in flips decisions at 38.2&times; the judge's own noise.
-    Method, scale, findings, and what I got wrong are on that page.
+    Interpretability of bias in multimodal models: identifying the internal semantics that carry a
+    bias, and mechanisms to correct it.
   </p>
 </section>
 
@@ -220,12 +224,19 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   <h2><span class="e">🔥</span> News</h2>
   <ul class="news">
     <li><span class="d">2026 · 10</span>
-      <span><em>Beyond Survival</em> accepted to <strong>EMNLP 2026 Main Conference</strong>.</span></li>
+      <span>Joining <strong>MBZUAI</strong> as a visiting student, advised by Prof. Xiuying Chen.</span></li>
+    <li><span class="d">2026 · 10</span>
+      <span>EditJudgeBias and LS-B posted
+        (<a href="https://arxiv.org/abs/2610.01670">arXiv:2610.01670</a>,
+        <a href="https://arxiv.org/abs/2610.01590">arXiv:2610.01590</a>);
+        both under review at <strong>ICLR 2027</strong>.</span></li>
+    <li><span class="d">2026 · 08</span>
+      <span>WereBench accepted to <strong>EMNLP 2026 Main Conference</strong>.</span></li>
     <li><span class="d">2025 · 10</span>
       <span>WereBench preprint posted:
         <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>.</span></li>
     <li><span class="d">2025 · 02</span>
-      <span>GeoComp preprint and dataset released:
+      <span>Geolocation preprint and the GeoComp dataset released:
         <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>.</span></li>
     <li><span class="d">2024</span>
       <span>Awarded the <strong>China National Scholarship</strong>.</span></li>
@@ -236,37 +247,62 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
   <h2><span class="e">📄</span> Publications</h2>
 
   <article class="pub">
+    <p class="pub-k"><span class="n">EditJudgeBias</span><span class="d">2026 · 10</span></p>
+    <h3 class="pub-t">Do MLLM Judges Judge the Edit? Auditing Bias in Image Editing Evaluation with Verified Quality Preservation</h3>
+    <p class="pub-a"><span class="me">Yuan Huang</span>*, Zirui Song*, Xiuying Chen &nbsp;<em>(* equal contribution)</em></p>
+    <p class="pub-v">Under review at ICLR 2027 &middot; co-first author</p>
+    <div class="pub-links">
+      <a href="./pub/EditJudgeBias.pdf">PDF</a>
+      <a href="https://arxiv.org/abs/2610.01670">arXiv</a>
+    </div>
+  </article>
+
+  <article class="pub">
+    <p class="pub-k"><span class="n">LS-B</span><span class="d">2026 · 10</span></p>
+    <h3 class="pub-t">Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize</h3>
+    <p class="pub-a"><span class="me">Yuan Huang</span>, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao</p>
+    <p class="pub-v">Under review at ICLR 2027 &middot; first author</p>
+    <div class="pub-links">
+      <a href="./pub/LS-B.pdf">PDF</a>
+      <a href="https://arxiv.org/abs/2610.01590">arXiv</a>
+    </div>
+  </article>
+
+  <article class="pub">
+    <p class="pub-k"><span class="n">WereBench</span><span class="d">2025 · 10</span></p>
     <h3 class="pub-t">Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</h3>
     <p class="pub-a">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al. &nbsp;<em>(* equal contribution)</em></p>
     <p class="pub-v">EMNLP 2026, Main Conference &middot; co-first author</p>
     <div class="pub-links">
+      <a href="./pub/WereBench.pdf">PDF</a>
       <a href="https://arxiv.org/abs/2510.11389">arXiv</a>
       <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a>
     </div>
   </article>
 
   <article class="pub">
+    <p class="pub-k"><span class="n">Geolocation</span><span class="d">2025 · 02</span></p>
     <h3 class="pub-t">Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</h3>
     <p class="pub-a">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
     <p class="pub-v">Preprint</p>
     <div class="pub-links">
+      <a href="./pub/Geolocation.pdf">PDF</a>
       <a href="https://arxiv.org/abs/2502.13759">arXiv</a>
       <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
       <a href="https://github.com/yuan4629/Geocomp">Code</a>
     </div>
   </article>
-
-  <p class="sub" style="margin-top:.9rem">
-    Work in progress is not listed here — see <a href="./current-focus.html">current focus</a>.
-  </p>
 </section>
 
 <section id="education">
   <h2><span class="e">🎓</span> Education</h2>
   <ul class="rows">
+    <li><span class="y">2026 – 27</span>
+      <span><strong>Visiting Student</strong>, Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)<br>
+        <span class="sub">advised by Xiuying Chen, Assistant Professor, MBZUAI</span></span></li>
     <li><span class="y">2023 – 27</span>
       <span><strong>B.Eng., Computer Science and Technology</strong>, Northeastern University, China<br>
-        <span class="sub">CGPA 4.05 / 5.00 (90 / 100) &middot; rank 5 / 100 &middot;
+        <span class="sub">CGPA 4.0481 / 5.00 (90 / 100) &middot; rank 5 / 110 (top 4.55%) &middot;
         advised by Shiqi Zhao, Assistant Professor, Northeastern University
         (Brain&#8209;Computer Interface and Hardware Acceleration Lab), since 2024</span></span></li>
   </ul>
@@ -305,7 +341,7 @@ footer{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--rule);
 
 <footer>
   <span>Yuan Huang &middot; Shenyang, China</span>
-  <span>Updated August 2026</span>
+  <span>Updated October 2026</span>
 </footer>
 
 </main>

@@ -11,15 +11,21 @@ Northeastern University, Shenyang, China
 Natural language processing, with a focus on **measurement validity** — whether the benchmarks and
 automatic judges used to rank models measure what they claim to. One result recurs across my
 projects: **surface competence ≠ underlying competence**. I want to measure that gap, explain it
-mechanistically, and close it.
+mechanistically, and close it. My current project is on the **interpretability of bias in
+multimodal models**: identifying the internal semantics that carry a bias, and mechanisms to
+correct it.
 
 ---
 
 ## Education
 
+**Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)** — Visiting Student · 2026 – 2027
+
+- Advised by Xiuying Chen (Assistant Professor, MBZUAI)
+
 **Northeastern University, China** — B.Eng. in Computer Science and Technology · 2023 – 2027 (expected)
 
-- CGPA **4.05 / 5.00** (90 / 100) · **Rank 5 / 100** in major cohort
+- CGPA **4.0481 / 5.00** (90 / 100) · **Rank 5 / 110** (top 4.55%) in major cohort
 - Advised by Shiqi Zhao (Assistant Professor, Northeastern University) since 2024
 
 ---
@@ -28,36 +34,50 @@ mechanistically, and close it.
 
 \* denotes equal contribution.
 
-**[1] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies**
+**[1] Do MLLM Judges Judge the Edit? Auditing Bias in Image Editing Evaluation with Verified Quality Preservation**
+**Yuan Huang**\*, Zirui Song\*, Xiuying Chen
+**EditJudgeBias** · *Under review at ICLR 2027.* · arXiv:2610.01670, Oct 2026 · **co-first author**
+
+**[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize**
+**Yuan Huang**, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao
+**LS-B** · *Under review at ICLR 2027.* · arXiv:2610.01590, Oct 2026 · **first author**
+
+**[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies**
 Zirui Song\*, **Yuan Huang**\*, Junchang Liu\*, et al.
-*EMNLP 2026, Main Conference.* · arXiv:2510.11389 · **co-first author**
+**WereBench** · *EMNLP 2026, Main Conference.* · arXiv:2510.11389, Oct 2025 · **co-first author**
 [Dataset](https://huggingface.co/datasets/n0nam4/WereBench)
 
-**[2] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework**
+**[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework**
 Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
-*Preprint.* · arXiv:2502.13759
+**Geolocation** · *Preprint.* · arXiv:2502.13759, Feb 2025
 [Dataset](https://huggingface.co/datasets/ShirohAO/tuxun) · [Code](https://github.com/yuan4629/Geocomp)
 
 ---
 
 ## Research Experience
 
-### EditJudgeBias — counterfactual audit of multimodal image-editing judges
-*Sole first author.* · 2026 – present · *In preparation; targeting ICLR 2027.*
+### EditJudgeBias — auditing bias in MLLM judges for image editing
+*Co-first author.* · Oct 2026 · *Under review at ICLR 2027.*
 
-- **Design.** Admit only perturbations that can be shown not to have changed edit quality:
-  preservation verification is an admission gate, not a post-hoc check, and every cue carries a
-  zero-dose sham control, so null results are readable.
-- **Scale.** 13 cue conditions across four injection sites, 5 published judges plus an independent
-  replication arm — **97,973 judgments**, 0.300% parse failure.
-- **Findings.** Reordering the two candidates alone flips decisions at **38.2× the judge's
-  self-noise**; of three mitigation layers only the protocol-level one works, and it works by
-  **abstention, not debiasing**.
-- **Rigor.** 1,307 unit tests and 109 sha256-stamped frozen artifacts; the audit overturned four of
-  my own conclusions.
+- **Design.** 1,196 real editing samples and 13 cues across four evaluation sites. A shift counts as
+  bias only if the cue is verified to preserve edit quality, and is read against the judge's own
+  zero-dose and re-query noise floors, not against zero.
+- **Findings.** Quality-preserving cues move all five MLLM judges beyond their own noise; swapping
+  candidate order alone reverses up to **60.9%** of pairwise decisions, against 1.0–10.5% on
+  re-query.
+- **Rigor.** 1,396 tests, 117 sha256-stamped artifacts; the audit overturned four of my own
+  conclusions.
+
+### LS-B — brain readouts for layer specialization in continual learning
+*First author.* · Oct 2026 · *Under review at ICLR 2027.*
+
+- Placement search over ViT depth traces an **inverted U** (up to 3.5 pp); LS-B reads early tasks
+  through an fMRI encoding model of twelve human visual areas and picks blocks overlapping the
+  peak — on Split ImageNet-R, within **1.5 pp** of full-BiLoRA at **60%** of the storage, with no
+  labels or backpropagation.
 
 ### WereBench / WereAlign — human-aligned evaluation of LLM social reasoning
-*Co-first author; inception through submission.* · EMNLP 2026 Main
+*Co-first author; inception through submission.* · Oct 2025 · EMNLP 2026 Main
 
 - Benchmark built from **100+ hours** of professional human social-deduction gameplay (**32.4M
   utterance tokens**, 30 roles, 15 rule variants), scored against **winning-side MVP trajectories**
@@ -66,13 +86,13 @@ Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
   counterfactual trade-off are weakest while persuasive generation stays strong — **fluency ≠
   strategic correctness**.
 
-### GeoComp / GeoCoT / GeoEval — geolocation from real human gameplay data
-*Co-author (3 of 9).* · Preprint
+### Geolocation — GeoComp / GeoCoT / GeoEval, from real human gameplay data
+*Co-author (3 of 9).* · Feb 2025 · Preprint
 
 - Dataset from a public geo-guessing platform — **740K users, 2.7M locations, 25M human response
   records** — with human accuracy calibrating item difficulty. Multi-step geographic reasoning
-  improved standard metrics by up to **25%**; scoring the reasoning process rather than only the
-  final answer added a further **9%**.
+  (GeoCoT) improved classic geolocation metrics by up to **25%**, and reasoning quality as scored by
+  GeoEval by **9%**.
 
 ---
 

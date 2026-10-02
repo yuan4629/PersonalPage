@@ -2,3 +2,6 @@
 Thumbs.db
 *.log
 NOTES.local.md
+
+# Only cv.md, cv.html and its render cv.pdf are published; any other CV variant stays local.
+cv_*

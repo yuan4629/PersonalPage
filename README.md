@@ -6,14 +6,17 @@ Academic homepage of **Yuan Huang (黄远)**, Northeastern University, China.
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The homepage. Short by design: about, news, published work, education, awards. A fixed bar across the top jumps to each section and marks the one you are reading. |
-| `current-focus.html` | Work in progress, in detail — currently the EditJudgeBias audit. Anything not yet published lives here, not on the homepage. |
+| `index.html` | The homepage. Short by design: about, news, publications, education, awards. A fixed bar across the top jumps to each section and marks the one you are reading. |
+| `pub/` | The papers as PDFs, as posted to arXiv, named by their short names (`EditJudgeBias`, `LS-B`, `WereBench`, `Geolocation`). Each entry under *Publications* links its PDF here. |
 | `cv.html` | Web version of the CV, styled to match the homepage. Print stylesheet included. |
-| `cv.pdf` | Generated from `cv.html`. Linked from the homepage nav as *CV (PDF)*. |
+| `cv.pdf` | Generated from `cv.html`. Linked from the CV page as *Download PDF*. |
 | `cv.md` | Source of truth for CV content, kept in sync by hand. |
 | `make-cv-pdf.ps1` | One command to re-render `cv.pdf` from `cv.html`. Not part of the site. |
 | `photo.jpg` | Portrait shown in the pinned identity block. **Not committed yet** — drop the file in and it appears; until then a dashed placeholder holds the space. `photo.png` works too. |
 | `.nojekyll` | Tells GitHub Pages to serve files as-is instead of running Jekyll. |
+
+Only `cv.md`, `cv.html` and `cv.pdf` are published. Any other CV variant (`cv_*.html`,
+`cv_*.pdf`) stays on this machine, and `.gitignore` keeps it out of the repo.
 
 Every page is self-contained — CSS and JS inline, no build step. The only external dependency is
 Google Fonts (IBM Plex Mono, Source Serif 4); both have local fallbacks, so the pages degrade
@@ -45,7 +48,7 @@ fallback chain — `photo.jpg` → `photo.png` → dashed placeholder. Around 60
 plenty; anything larger is wasted bytes on every page load.
 
 To hide the placeholder instead of showing it while the file is missing, add
-`.photo.empty{display:none}` to the stylesheet in `index.html` and `current-focus.html`.
+`.photo.empty{display:none}` to the stylesheet in `index.html`.
 
 ## Regenerating cv.pdf
 
@@ -56,11 +59,15 @@ you edit `cv.html` and forget to re-render. After any CV edit, from the repo roo
 powershell -ExecutionPolicy Bypass -File .\make-cv-pdf.ps1
 ```
 
+`-Name` renders another basename in this folder instead (it defaults to `cv`).
+
 That is headless Chrome printing `cv.html`. The script exists because three details are easy to
 get wrong by hand, and each one fails **silently — no error, no file**:
 
 - `--print-to-pdf` needs an **absolute** path. A relative one is dropped.
-- `--user-data-dir` must point somewhere writable, or Chrome exits having done nothing.
+- `--user-data-dir` must point somewhere writable **and unlocked**. A headless Chrome left over
+  from an earlier run keeps the lock and the next run quietly does nothing, so the script gives
+  each run its own profile directory and deletes it afterwards.
 - Chrome returns **before** the file is flushed, so the write has to be polled for.
 
 By hand, if you would rather not use the script:
