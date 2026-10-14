@@ -19,9 +19,9 @@ correct it.
 
 ## Education
 
-**Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)** — Visiting Student · 2026 – 2027
+**Mohamed bin Zayed University of Artificial Intelligence (MBZUAI)** — Visiting Student · Oct 2026 – Jan 2027
 
-- Advised by Xiuying Chen (Assistant Professor, MBZUAI)
+- Hosted by Xiuying Chen (Assistant Professor, MBZUAI), my collaborator since 2025
 
 **Northeastern University, China** — B.Eng. in Computer Science and Technology · 2023 – 2027 (expected)
 
@@ -30,7 +30,7 @@ correct it.
 
 ---
 
-## Publications
+## Publications & Research
 
 \* denotes equal contribution.
 
@@ -38,46 +38,26 @@ correct it.
 **Yuan Huang**\*, Zirui Song\*, Xiuying Chen
 **EditJudgeBias** · *Under review at ICLR 2027.* · arXiv:2610.01670, Oct 2026 · **co-first author**
 
-**[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize**
-**Yuan Huang**, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao
-**LS-B** · *Under review at ICLR 2027.* · arXiv:2610.01590, Oct 2026 · **first author**
-
-**[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies**
-Zirui Song\*, **Yuan Huang**\*, Junchang Liu\*, et al.
-**WereBench** · *EMNLP 2026, Main Conference.* · arXiv:2510.11389, Oct 2025 · **co-first author**
-[Dataset](https://huggingface.co/datasets/n0nam4/WereBench)
-
-**[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework**
-Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
-**Geolocation** · *Preprint.* · arXiv:2502.13759, Feb 2025
-[Dataset](https://huggingface.co/datasets/ShirohAO/tuxun) · [Code](https://github.com/yuan4629/Geocomp)
-
----
-
-## Research Experience
-
-### EditJudgeBias — auditing bias in MLLM judges for image editing
-*Co-first author.* · Oct 2026 · *Under review at ICLR 2027.*
-
 - **Design.** 1,196 real editing samples and 13 cues across four evaluation sites. A shift counts as
   bias only if the cue is verified to preserve edit quality, and is read against the judge's own
   zero-dose and re-query noise floors, not against zero.
 - **Findings.** Quality-preserving cues move all five MLLM judges beyond their own noise; swapping
   candidate order alone reverses up to **60.9%** of pairwise decisions, against 1.0–10.5% on
   re-query.
-- **Rigor.** 1,396 tests, 117 sha256-stamped artifacts; the audit overturned four of my own
-  conclusions.
 
-### LS-B — brain readouts for layer specialization in continual learning
-*First author.* · Oct 2026 · *Under review at ICLR 2027.*
+**[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize**
+**Yuan Huang**, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao
+**LS-B** · *Under review at ICLR 2027.* · arXiv:2610.01590, Oct 2026 · **first author**
 
 - Placement search over ViT depth traces an **inverted U** (up to 3.5 pp); LS-B reads early tasks
   through an fMRI encoding model of twelve human visual areas and picks blocks overlapping the
   peak — on Split ImageNet-R, within **1.5 pp** of full-BiLoRA at **60%** of the storage, with no
   labels or backpropagation.
 
-### WereBench / WereAlign — human-aligned evaluation of LLM social reasoning
-*Co-first author; inception through submission.* · Oct 2025 · EMNLP 2026 Main
+**[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies**
+Zirui Song\*, **Yuan Huang**\*, Junchang Liu\*, et al.
+**WereBench** · *EMNLP 2026, Main Conference.* · arXiv:2510.11389, Oct 2025 · **co-first author**
+[Dataset](https://huggingface.co/datasets/n0nam4/WereBench)
 
 - Benchmark built from **100+ hours** of professional human social-deduction gameplay (**32.4M
   utterance tokens**, 30 roles, 15 rule variants), scored against **winning-side MVP trajectories**
@@ -86,8 +66,10 @@ Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
   counterfactual trade-off are weakest while persuasive generation stays strong — **fluency ≠
   strategic correctness**.
 
-### Geolocation — GeoComp / GeoCoT / GeoEval, from real human gameplay data
-*Co-author (3 of 9).* · Feb 2025 · Preprint
+**[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework**
+Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
+**Geolocation** · *Preprint.* · arXiv:2502.13759, Feb 2025
+[Dataset](https://huggingface.co/datasets/ShirohAO/tuxun) · [Code](https://github.com/yuan4629/Geocomp)
 
 - Dataset from a public geo-guessing platform — **740K users, 2.7M locations, 25M human response
   records** — with human accuracy calibrating item difficulty. Multi-step geographic reasoning
@@ -104,7 +86,7 @@ Zirui Song, Jingpu Yang, **Yuan Huang**, et al.
 
 ---
 
-## Skills
+## Skills & Languages
 
-- Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)
-<!-- - IELTS Academic — taken 4 September 2026 (score to follow) · CET-6 534 -->
+- **Programming.** Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)
+- **Languages.** English — IELTS Academic 7.0 (Oct 2026) · Chinese (native)

@@ -94,7 +94,7 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   section:first-of-type h2{margin-top:12pt}
   .entry{margin-bottom:13pt}
   .et,.em,.ea,.lead{break-after:avoid;page-break-after:avoid}
-  /* a publication entry ends on its meta line; without this the avoid chains
+  /* an entry that ends on its meta line must release the avoid, or it chains
      through every entry and the whole section jumps to the next page */
   .entry > .em:last-child{break-after:auto;page-break-after:auto}
   .row{break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
@@ -147,10 +147,10 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   <div class="entry">
     <div class="row">
       <p class="et">Mohamed bin Zayed University of Artificial Intelligence (MBZUAI) — Visiting Student</p>
-      <span class="when">2026 – 2027</span>
+      <span class="when">Oct 2026 – Jan 2027</span>
     </div>
     <ul class="b">
-      <li>Advised by Xiuying Chen (Assistant Professor, MBZUAI)</li>
+      <li>Hosted by Xiuying Chen (Assistant Professor, MBZUAI), my collaborator since 2025</li>
     </ul>
   </div>
   <div class="entry">
@@ -166,7 +166,7 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Publications</h2>
+  <h2>Publications &amp; Research</h2>
 
   <div class="entry">
     <p class="et">[1] Do MLLM Judges Judge the Edit? Auditing Bias in Image Editing Evaluation with Verified Quality Preservation</p>
@@ -174,42 +174,6 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
       <em>(* equal contribution)</em></p>
     <p class="em"><b>EditJudgeBias</b> · <em>Under review at ICLR 2027</em> · <span style="white-space:nowrap">co-first author</span>
       · <a href="https://arxiv.org/abs/2610.01670">arXiv:2610.01670</a>, Oct 2026</p>
-  </div>
-
-  <div class="entry">
-    <p class="et">[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize</p>
-    <p class="ea"><span class="me">Yuan Huang</span>, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao</p>
-    <p class="em"><b>LS-B</b> · <em>Under review at ICLR 2027</em> · <span style="white-space:nowrap">first author</span>
-      · <a href="https://arxiv.org/abs/2610.01590">arXiv:2610.01590</a>, Oct 2026</p>
-  </div>
-
-  <div class="entry">
-    <p class="et">[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
-    <p class="ea">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al.
-      <em>(* equal contribution)</em></p>
-    <p class="em"><b>WereBench</b> · <em>EMNLP 2026, Main Conference</em> · <span style="white-space:nowrap">co-first author</span>
-      · <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>, Oct 2025
-      · <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a></p>
-  </div>
-
-  <div class="entry">
-    <p class="et">[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
-    <p class="ea">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
-    <p class="em"><b>Geolocation</b> · <em>Preprint</em> · <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>, Feb 2025
-      · <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
-      · <a href="https://github.com/yuan4629/Geocomp">Code</a></p>
-  </div>
-</section>
-
-<section>
-  <h2>Research Experience</h2>
-
-  <div class="entry">
-    <div class="row">
-      <p class="et">EditJudgeBias — auditing bias in MLLM judges for image editing</p>
-      <span class="when">Oct 2026</span>
-    </div>
-    <p class="em">Co-first author · <span style="white-space:nowrap">under review at ICLR 2027</span></p>
     <ul class="b">
       <li><b>Design.</b> 1,196 real editing samples and 13 cues across four evaluation sites. A shift
         counts as bias only if the cue is verified to preserve edit quality, and is read against the
@@ -217,17 +181,14 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
       <li><b>Findings.</b> Quality-preserving cues move all five MLLM judges beyond their own noise;
         swapping candidate order alone reverses up to <b>60.9%</b> of pairwise decisions, against
         1.0–10.5% on re-query.</li>
-      <li><b>Rigor.</b> 1,396 tests, 117 sha256-stamped artifacts; the audit overturned four of my own
-        conclusions.</li>
     </ul>
   </div>
 
   <div class="entry">
-    <div class="row">
-      <p class="et">LS-B — brain readouts for layer specialization in continual learning</p>
-      <span class="when">Oct 2026</span>
-    </div>
-    <p class="em">First author · <span style="white-space:nowrap">under review at ICLR 2027</span></p>
+    <p class="et">[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize</p>
+    <p class="ea"><span class="me">Yuan Huang</span>, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao</p>
+    <p class="em"><b>LS-B</b> · <em>Under review at ICLR 2027</em> · <span style="white-space:nowrap">first author</span>
+      · <a href="https://arxiv.org/abs/2610.01590">arXiv:2610.01590</a>, Oct 2026</p>
     <ul class="b">
       <li>Placement search over ViT depth traces an <b>inverted U</b> (up to 3.5 pp); LS-B reads early
         tasks through an fMRI encoding model of twelve human visual areas and picks blocks overlapping
@@ -237,11 +198,12 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   </div>
 
   <div class="entry">
-    <div class="row">
-      <p class="et">WereBench / WereAlign — human-aligned evaluation of LLM social reasoning</p>
-      <span class="when">Oct 2025</span>
-    </div>
-    <p class="em">Co-first author · inception through submission · EMNLP 2026 Main</p>
+    <p class="et">[3] Beyond Survival: Evaluating LLMs in Social Deduction Games with Human-Aligned Strategies</p>
+    <p class="ea">Zirui Song*, <span class="me">Yuan Huang</span>*, Junchang Liu*, et al.
+      <em>(* equal contribution)</em></p>
+    <p class="em"><b>WereBench</b> · <em>EMNLP 2026, Main Conference</em> · <span style="white-space:nowrap">co-first author</span>
+      · <a href="https://arxiv.org/abs/2510.11389">arXiv:2510.11389</a>, Oct 2025
+      · <a href="https://huggingface.co/datasets/n0nam4/WereBench">Dataset</a></p>
     <ul class="b">
       <li>Benchmark built from <b>100+ hours</b> of professional human social-deduction gameplay
         (<b>32.4M utterance tokens</b>, 30 roles, 15 rule variants), scored against <b>winning-side MVP
@@ -253,11 +215,11 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
   </div>
 
   <div class="entry">
-    <div class="row">
-      <p class="et">Geolocation — GeoComp / GeoCoT / GeoEval, from real human gameplay data</p>
-      <span class="when">Feb 2025</span>
-    </div>
-    <p class="em">Co-author (3 of 9) · preprint</p>
+    <p class="et">[4] Geolocation with Real Human Gameplay Data: A Large-Scale Dataset and Human-Like Reasoning Framework</p>
+    <p class="ea">Zirui Song, Jingpu Yang, <span class="me">Yuan Huang</span>, et al.</p>
+    <p class="em"><b>Geolocation</b> · <em>Preprint</em> · <a href="https://arxiv.org/abs/2502.13759">arXiv:2502.13759</a>, Feb 2025
+      · <a href="https://huggingface.co/datasets/ShirohAO/tuxun">Dataset</a>
+      · <a href="https://github.com/yuan4629/Geocomp">Code</a></p>
     <ul class="b">
       <li>Dataset from a public geo-guessing platform — <b>740K users, 2.7M locations, 25M human
         response records</b> — with human accuracy calibrating item difficulty. Multi-step geographic
@@ -277,10 +239,10 @@ footer{margin-top:2rem;padding-top:.9rem;border-top:1px solid var(--rule);
 </section>
 
 <section>
-  <h2>Skills</h2>
+  <h2>Skills &amp; Languages</h2>
   <ul class="b">
-    <li>Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)</li>
-    <!-- <li>IELTS Academic — taken 4 September 2026 (score to follow) · CET-6 534</li> -->
+    <li><b>Programming.</b> Python, C++, Java · PyTorch, Hugging Face Transformers · backend engineering intern, 2024 (Java / Spring Boot)</li>
+    <li><b>Languages.</b> English — IELTS Academic 7.0 (Oct 2026) · Chinese (native)</li>
   </ul>
 </section>
 
