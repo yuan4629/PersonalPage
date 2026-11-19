@@ -47,7 +47,7 @@ correct it.
 
 **[2] Two Routes to the Middle: Placement Search and Brain Readouts Converge on Where Continual Learners Should Specialize**
 **Yuan Huang**, Zihan Chen, Runbin Zhang, Hongwei Ding, Changzeng Fu, Shiqi Zhao
-**LS-B** · *Under review at ICLR 2027.* · arXiv:2610.01590, Oct 2026 · **first author**
+**LS-B** · *Under review at CVPR 2027.* · arXiv:2610.01590, Oct 2026 · **first author**
 
 - Placement search over ViT depth traces an **inverted U** (up to 3.5 pp); LS-B reads early tasks
   through an fMRI encoding model of twelve human visual areas and picks blocks overlapping the
